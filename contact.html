@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VTuber 伊吹しろうへのビジネスに関するお問い合わせ。企業案件・コラボレーションのご依頼はこちらから。">
+  <title>Contact - 伊吹しろう Official Website</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- ヘッダー -->
+  <header></header>
+
+  <!-- お問い合わせセクション -->
+  <section style="padding-top: 8rem;">
+    <h2 class="section-title">Contact</h2>
+    
+    <div style="max-width: 700px; margin: 0 auto;">
+      <p style="text-align: center; font-family: var(--font-secondary); color: var(--color-text-secondary); margin-bottom: 3rem; line-height: 1.8;">
+        ビジネスに関するお問い合わせは、以下のメールアドレスよりお願いいたします。<br>
+        <strong style="color: var(--color-secondary);">企業案件・個人からの仕事のご依頼に限定</strong>しております。<br>
+        その他のメッセージにつきましては、ご遠慮いただけますようお願い申し上げます。
+      </p>
+      
+      <div style="background: rgba(26, 26, 26, 0.8); border: 1px solid var(--color-border); border-radius: 8px; padding: 3rem; margin-bottom: 3rem;">
+        <h3 style="font-size: 1.3rem; color: var(--color-secondary); margin-bottom: 1.5rem; text-align: center;">お問い合わせメールアドレス</h3>
+        
+        <div style="text-align: center;">
+          <button id="copy-email-btn" class="btn" style="font-size: 1.2rem; letter-spacing: 0.05em; cursor: pointer;">
+            ibukishirou.v@gmail.com
+          </button>
+          <p style="margin-top: 1rem; font-family: var(--font-secondary); color: var(--color-text-secondary); font-size: 0.9rem;">クリックでメールアドレスをコピーできます</p>
+        </div>
+      </div>
+      
+      <div style="background: rgba(26, 26, 26, 0.8); border: 1px solid var(--color-border); border-radius: 8px; padding: 2rem;">
+        <h3 style="font-size: 1.1rem; color: var(--color-secondary); margin-bottom: 1rem;">お問い合わせについて</h3>
+        <ul style="font-family: var(--font-secondary); color: var(--color-text-secondary); line-height: 2; font-size: 0.95rem;">
+          <li><strong>対象：</strong>企業案件、コラボレーション、取材、その他ビジネスに関するご依頼のみ</li>
+          <li>ファン活動に関するルールは<a href="guidelines.html" style="color: var(--color-secondary);">ファンガイドライン</a>をご参照ください。</li>
+          <li>よくあるご質問については<a href="faq.html" style="color: var(--color-secondary);">FAQ</a>をご確認ください。</li>
+          <li>メールの内容によっては、回答にお時間をいただく場合がございます。</li>
+          <li>内容によってはご対応できかねる場合もございます。予めご了承ください。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- フッター -->
+  <footer></footer>
+
+  <!-- JavaScript -->
+  <script src="js/components.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/share.js"></script>
+  <script>
+    // メールアドレスコピー機能
+    document.addEventListener('DOMContentLoaded', () => {
+      const copyEmailBtn = document.getElementById('copy-email-btn');
+      if (copyEmailBtn) {
+        copyEmailBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const email = 'ibukishirou.v@gmail.com';
+          
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(email).then(() => {
+              showNotification('コピーしました');
+            });
+          } else {
+            // フォールバック
+            const textarea = document.createElement('textarea');
+            textarea.value = email;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            showNotification('コピーしました');
+          }
+        });
+      }
+    });
+    
+    // 通知表示関数（share.jsと同じスタイル）
+    function showNotification(message) {
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(210, 105, 30, 0.95);
+        color: #f5f5f5;
+        padding: 1.5rem 2rem;
+        border-radius: 8px;
+        z-index: 10000;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        font-family: 'Noto Sans JP', sans-serif;
+        text-align: center;
+        max-width: 90%;
+        animation: fadeIn 0.3s ease;
+      `;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.animation = 'fadeOut 0.3s ease';
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 2500);
+    }
+  </script>
+</body>
+</html>

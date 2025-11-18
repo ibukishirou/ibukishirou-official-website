@@ -1,0 +1,56 @@
+/* ============================================
+   プロフィールページ専用スタイル
+   ============================================ */
+
+.profile-section-group {
+  background: rgba(26, 26, 26, 0.8);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.profile-section-title {
+  font-size: 1.5rem;
+  color: var(--color-secondary);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.profile-link {
+  color: var(--color-text);
+  text-decoration: underline;
+  transition: var(--transition);
+}
+
+.profile-link:hover {
+  color: var(--color-secondary);
+  text-decoration: underline;
+}
+
+/* 三面図スタイル */
+.sanmenzu-link {
+  display: block;
+  margin-top: 2rem;
+  transition: opacity 0.3s ease;
+}
+
+.sanmenzu-link:hover {
+  opacity: 0.8;
+}
+
+.sanmenzu-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+}
+
+.sanmenzu-note {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-top: 0.5rem;
+  font-family: var(--font-secondary);
+}

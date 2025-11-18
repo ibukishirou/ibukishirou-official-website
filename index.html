@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VTuber 伊吹しろう 公式サイト。歌・トーク・ゲームを中心に活動するエンターテイナー。最新情報、作品一覧、ガイドライン等はこちらから。">
+  <meta name="keywords" content="伊吹しろう,VTuber,ウルメイト,歌ってみた,ゲーム配信">
+  
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="伊吹しろう Official Website">
+  <meta property="og:description" content="気づけば君の毎日に、俺がいる。">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="assets/img/header.webp">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="伊吹しろう Official Website">
+  <meta name="twitter:description" content="気づけば君の毎日に、俺がいる。">
+  <meta name="twitter:image" content="assets/img/header.webp">
+  
+  <meta property="og:locale" content="ja_JP">
+  
+  <title>伊吹しろう Official Website</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/loading.css">
+</head>
+<body>
+  <!-- ローディング画面 -->
+  <div id="loading-screen">
+    <div class="loading-content">
+      <img src="assets/img/logo_wolf.webp" alt="Loading..." class="loading-logo">
+      <p class="loading-text">
+        <span class="loading-text-pc">伊吹しろう Official Websiteへようこそ</span>
+        <span class="loading-text-sp">伊吹しろう<br>Official<br>Website<br>へようこそ</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- ヘッダー -->
+  <header></header>
+
+  <!-- ヒーローセクション -->
+  <section class="hero">
+    <div class="hero-video-wrapper">
+      <iframe 
+        id="hero-video"
+        src="https://www.youtube.com/embed/H_hsFNOfKNI?autoplay=1&mute=1&loop=1&playlist=H_hsFNOfKNI&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        allowfullscreen
+        class="hero-bg-video">
+      </iframe>
+    </div>
+    <div class="scroll-indicator">
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- キャッチフレーズセクション -->
+  <section id="catchphrase">
+    <h2 class="section-title">Virtual Talent</h2>
+    <p class="catchphrase-subtitle">伊吹しろう / ibuki shirou</p>
+    <p class="catchphrase-company">個人事務所ULRIC</p>
+    <p class="catchphrase-description">配信・企画・グッズなど幅広く展開。</p>
+    <p class="catchphrase-text"><span class="catchphrase-line1">気づけば君の毎日に、</span><span class="catchphrase-line2">俺がいる。</span></p>
+  </section>
+
+  <!-- 代表作セクション -->
+  <section id="featured-works">
+    <h2 class="section-title">Featured Works</h2>
+    <div class="card-grid" id="featured-works-container">
+      <!-- JSで動的に読み込み -->
+    </div>
+  </section>
+
+  <!-- 最新ニュース -->
+  <section id="latest-news">
+    <h2 class="section-title">Latest News</h2>
+    <div class="news-list" id="news-container">
+      <!-- JSで動的に読み込み -->
+    </div>
+    <div style="text-align: center; margin-top: 2rem;">
+      <a href="news.html" class="btn">もっと見る</a>
+    </div>
+  </section>
+
+  <!-- SNSリンク -->
+  <section id="social">
+    <h2 class="section-title">Social Links</h2>
+    <div class="sns-links" id="sns-links-container">
+      <!-- JSで動的に読み込み -->
+    </div>
+  </section>
+
+  <!-- フッター -->
+  <footer></footer>
+
+  <!-- JavaScript -->
+  <script src="js/components.js"></script>
+  <script src="js/loading.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/fetch-news.js"></script>
+  <script src="js/fetch-links.js"></script>
+  <script>
+    // Homeページ用：最新3件のみ表示
+    async function loadLatestNews() {
+      try {
+        const response = await fetch('data/news.json');
+        const newsData = await response.json();
+        
+        const today = new Date();
+        const validNews = newsData.filter(item => {
+          const startDate = new Date(item.startDate);
+          const endDate = new Date(item.endDate);
+          return today >= startDate && today <= endDate;
+        });
+        
+        validNews.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
+        displayNews(validNews, 3);
+      } catch (error) {
+        console.error('ニュースの読み込みに失敗しました:', error);
+      }
+    }
+    
+    // Featured Worksの読み込み
+    async function loadFeaturedWorks() {
+      try {
+        const response = await fetch('data/works.json');
+        const worksData = await response.json();
+        const featuredWorks = worksData.filter(item => item.featured === true);
+        
+        const container = document.getElementById('featured-works-container');
+        if (!container) return;
+        
+        container.innerHTML = featuredWorks.map(item => {
+          const videoId = extractYouTubeVideoId(item.link);
+          const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+          return `
+            <div class="featured-work-item">
+              <a href="${item.link}" target="_blank" class="thumbnail-link">
+                <img src="${thumbnailUrl}" alt="${item.title}" class="featured-thumbnail" onerror="this.src='https://img.youtube.com/vi/${videoId}/hqdefault.jpg'">
+              </a>
+              <div class="card-content">
+                <h3 class="card-title"><a href="${item.link}" target="_blank">${item.title}</a></h3>
+                <div class="card-tags">
+                  ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (error) {
+        console.error('Featured Worksの読み込みに失敗しました:', error);
+      }
+    }
+    
+    loadLatestNews();
+    loadFeaturedWorks();
+  </script>
+  <script src="js/share.js"></script>
+</body>
+</html>

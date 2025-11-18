@@ -1,0 +1,23 @@
+[
+  {
+    "title": "狂乱 Hey Kids!!",
+    "category": "song",
+    "link": "https://www.youtube.com/watch?v=ebn1HkmANqg",
+    "tags": ["歌ってみた", "デビュー記念"],
+    "featured": true
+  },
+  {
+    "title": "私は最強",
+    "category": "song",
+    "link": "https://www.youtube.com/watch?v=9Q0JNp02gdg",
+    "tags": ["歌ってみた", "1ヵ月記念"],
+    "featured": true
+  },
+  {
+    "title": "MAGIC",
+    "category": "song",
+    "link": "https://www.youtube.com/watch?v=ma38CHcOcM0",
+    "tags": ["歌ってみた", "収益化記念"],
+    "featured": true
+  }
+]
