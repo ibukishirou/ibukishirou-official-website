@@ -88,6 +88,10 @@
             歌とトークで君を虜にするVTuber。<br>
             一瞬を楽しむだけじゃない、君の記憶に深く刻まれる存在へ。<br>
           </p>
+          <!-- Social Links -->
+          <div class="profile-social-links" id="profile-social-links">
+            <!-- JSで動的に読み込み -->
+          </div>
         </div>
         
         <!-- 基本情報グループ -->
@@ -186,5 +190,38 @@
   <script src="js/breadcrumb.js"></script>
   <script src="js/main.js"></script>
   <script src="js/share.js"></script>
+  <script>
+    // プロフィールページ用のSNSリンク読み込み
+    async function loadProfileSocialLinks() {
+      try {
+        const response = await fetch('data/links.json');
+        const linksData = await response.json();
+        
+        const container = document.getElementById('profile-social-links');
+        if (!container) return;
+        
+        const snsConfig = [
+          { key: 'youtube', icon: '▶' },
+          { key: 'x_main', icon: '𝕏' },
+          { key: 'x_sub', icon: '𝕏' },
+          { key: 'tiktok', icon: '♪' },
+          { key: 'marshmallow', icon: '📧' },
+          { key: 'booth', icon: '🛒' },
+          { key: 'wishlist', icon: '🎁' }
+        ];
+        
+        container.innerHTML = snsConfig.map(sns => {
+          if (linksData[sns.key]) {
+            return `<a href="${linksData[sns.key]}" target="_blank" rel="noopener noreferrer" class="profile-social-link" title="${sns.key}">${sns.icon}</a>`;
+          }
+          return '';
+        }).join('');
+      } catch (error) {
+        console.error('SNSリンクの読み込みに失敗しました:', error);
+      }
+    }
+    
+    loadProfileSocialLinks();
+  </script>
 </body>
 </html>
