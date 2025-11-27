@@ -1,5 +1,5 @@
 /* ============================================
-   Achievements Page - 年表デザイン（完全新規）
+   Achievements Page - 年表デザイン（修正版）
    ============================================ */
 
 /* フィルターボタン */
@@ -36,7 +36,7 @@
   color: var(--color-text);
 }
 
-/* 年表リスト - 中央縦線、左右交互配置 */
+/* 年表リスト */
 .achievements-list {
   max-width: 1000px;
   margin: 0 auto;
@@ -62,10 +62,8 @@
 
 /* 各アイテム */
 .achievement-item {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 3rem;
   position: relative;
+  margin-bottom: 4rem;
   opacity: 0;
   animation: fadeInUp 0.6s ease forwards;
 }
@@ -91,34 +89,30 @@
 .achievement-item:nth-child(7) { animation-delay: 0.7s; }
 .achievement-item:nth-child(8) { animation-delay: 0.8s; }
 
-/* 左側配置（偶数） */
-.achievement-item:nth-child(even) {
-  flex-direction: row-reverse;
-}
-
-/* 日付 */
+/* 日付 - 奇数は左側 */
 .achievement-date {
+  position: absolute;
+  top: 0;
   font-family: var(--font-secondary);
   font-size: 1.1rem;
   color: var(--color-secondary);
   font-weight: 700;
   white-space: nowrap;
-  padding: 0 2rem;
-  min-width: 150px;
-  text-align: center;
 }
 
-/* 左側の日付は右寄せ */
 .achievement-item:nth-child(odd) .achievement-date {
+  right: 50%;
+  margin-right: 3rem;
   text-align: right;
 }
 
-/* 右側の日付は左寄せ */
 .achievement-item:nth-child(even) .achievement-date {
+  left: 50%;
+  margin-left: 3rem;
   text-align: left;
 }
 
-/* 中央のポイント - 縦線の上に */
+/* 中央のポイント */
 .achievement-point {
   width: 20px;
   height: 20px;
@@ -127,21 +121,28 @@
   border-radius: 50%;
   position: absolute;
   left: 50%;
+  top: 0;
   transform: translateX(-50%);
   z-index: 10;
   box-shadow: 0 0 0 4px rgba(210, 105, 30, 0.3);
-  top: 0;
 }
 
-/* コンテンツエリア */
+/* コンテンツ - 奇数は右側 */
 .achievement-content {
-  flex: 1;
-  max-width: 400px;
+  width: 45%;
   background: rgba(26, 26, 26, 0.4);
   padding: 1.5rem;
   border-radius: 8px;
   border: 1px solid var(--color-border);
   transition: var(--transition);
+}
+
+.achievement-item:nth-child(odd) .achievement-content {
+  margin-left: 55%;
+}
+
+.achievement-item:nth-child(even) .achievement-content {
+  margin-right: 55%;
 }
 
 .achievement-content:hover {
@@ -200,7 +201,7 @@
   margin-right: 0.2rem;
 }
 
-/* レスポンシブ対応 - SPでは縦並び */
+/* レスポンシブ対応 */
 @media (max-width: 768px) {
   .filter-buttons {
     gap: 0.5rem;
@@ -213,7 +214,7 @@
   
   .achievements-list {
     padding: 2rem 1rem;
-    padding-left: 2rem;
+    padding-left: 2.5rem;
   }
   
   /* SPでは左端に縦線 */
@@ -222,14 +223,12 @@
     transform: none;
   }
   
-  /* SPでは全て左側配置 */
-  .achievement-item,
-  .achievement-item:nth-child(even) {
-    flex-direction: column;
-    margin-bottom: 2.5rem;
+  .achievement-item {
+    margin-bottom: 3rem;
     padding-left: 2rem;
   }
   
+  /* SPでは日付を非表示 */
   .achievement-date {
     display: none;
   }
@@ -237,11 +236,14 @@
   .achievement-point {
     left: 1.5rem;
     transform: translateX(-50%);
-    top: 0;
   }
   
-  .achievement-content {
-    max-width: 100%;
+  /* SPではコンテンツを全幅に */
+  .achievement-content,
+  .achievement-item:nth-child(odd) .achievement-content,
+  .achievement-item:nth-child(even) .achievement-content {
+    width: 100%;
+    margin: 0;
     padding: 1.25rem;
   }
   
