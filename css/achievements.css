@@ -48,7 +48,7 @@
 .achievements-list::before {
   content: '';
   position: absolute;
-  left: calc(140px + 2rem);
+  left: calc(140px + 2rem - 1px);
   top: 0;
   bottom: 0;
   width: 2px;
@@ -96,25 +96,23 @@
   color: var(--color-secondary);
   font-weight: 600;
   text-align: right;
-  padding-right: 2rem;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
+  width: 140px;
+  flex-shrink: 0;
   padding-top: 0.5rem;
 }
 
-/* 中央のポイント - ラインの上に重ねる */
+/* 中央のポイント - 縦線の中心に正確に配置 */
 .achievement-point {
   width: 16px;
   height: 16px;
   background: var(--color-secondary);
   border: 3px solid var(--color-bg);
   border-radius: 50%;
-  position: relative;
+  position: absolute;
+  left: calc(140px + 2rem - 9px);
+  top: calc(3rem + 0.5rem);
   z-index: 10;
   box-shadow: 0 0 0 3px var(--color-secondary);
-  flex-shrink: 0;
-  margin-top: 0.5rem;
 }
 
 .achievement-content {
@@ -126,6 +124,8 @@
   border-radius: 8px;
   border: 1px solid var(--color-border);
   transition: var(--transition);
+  flex: 1;
+  margin-left: 2rem;
 }
 
 .achievement-content:hover {
@@ -215,19 +215,20 @@
   }
   
   .achievements-list {
-    padding: 0 1rem 0 1.5rem;
+    padding: 0;
+    padding-left: 1.5rem;
   }
   
-  /* モバイルでは左側に線を配置 */
+  /* モバイルでは左端に線を配置 */
   .achievements-list::before {
-    left: 0;
+    left: calc(1.5rem - 1px);
   }
   
   .achievement-item {
     flex-direction: column;
     gap: 0;
     padding: 2rem 0;
-    padding-left: 2rem;
+    padding-left: 0;
   }
   
   .achievement-date {
@@ -235,13 +236,13 @@
   }
   
   .achievement-point {
-    left: -8px;
+    left: calc(1.5rem - 9px);
     top: calc(2rem + 0.5rem);
   }
   
   .achievement-content {
     padding: 1rem;
-    margin-left: 0;
+    margin-left: 2rem;
   }
   
   .achievement-content:hover {
