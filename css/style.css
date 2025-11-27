@@ -1206,13 +1206,24 @@ footer {
   fill: #ffffff;
 }
 
-/* シェアメニュー（左側に横一列表示） */
+/* シェアトグルボタン（展開時に光る） */
+.share-btn.share-toggle.active {
+  background: var(--color-secondary);
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 20px rgba(210, 105, 30, 0.6);
+}
+
+.share-btn.share-toggle.active svg {
+  fill: #ffffff;
+}
+
+/* シェアメニュー（左側に横一列表示、一番下に配置） */
 .share-menu {
   display: flex;
   flex-direction: row;
   gap: 0.8rem;
   margin-right: 0.8rem;
-  align-items: center;
+  align-items: flex-end;
   order: 1;
 }
 

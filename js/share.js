@@ -111,6 +111,7 @@
       // メニューを表示
       shareMenu.style.display = 'flex';
       toggleBtn.setAttribute('aria-label', 'シェアメニューを閉じる');
+      toggleBtn.classList.add('active'); // アクティブクラスを追加
       
       // アニメーション効果（左からスライドイン）
       const options = shareMenu.querySelectorAll('.share-option');
@@ -147,6 +148,7 @@
       shareMenu.style.display = 'none';
       if (toggleBtn) {
         toggleBtn.setAttribute('aria-label', 'シェアメニューを開く');
+        toggleBtn.classList.remove('active'); // アクティブクラスを削除
       }
     }, 300);
     
