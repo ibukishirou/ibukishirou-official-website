@@ -112,7 +112,7 @@
   text-align: left;
 }
 
-/* 中央のポイント */
+/* 中央のポイント - ラインの上に表示 */
 .achievement-point {
   width: 20px;
   height: 20px;
@@ -217,15 +217,14 @@
     padding-left: 2.5rem;
   }
   
-  /* SPでは左端に縦線 */
+  /* SPでは縦線と点を非表示 */
   .achievements-list::before {
-    left: 1.5rem;
-    transform: none;
+    display: none;
   }
   
   .achievement-item {
-    margin-bottom: 3rem;
-    padding-left: 2rem;
+    margin-bottom: 2rem;
+    padding-left: 0;
   }
   
   /* SPでは日付を非表示 */
@@ -234,8 +233,7 @@
   }
   
   .achievement-point {
-    left: 1.5rem;
-    transform: translateX(-50%);
+    display: none;
   }
   
   /* SPではコンテンツを全幅に */
