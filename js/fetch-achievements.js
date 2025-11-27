@@ -71,11 +71,11 @@ function displayAchievements(achievementsArray) {
           <div class="achievement-date">${formattedDate}</div>
           <div class="achievement-point"></div>
           <div class="achievement-content" data-date="${formattedDate}">
-            <div class="achievement-tags">${tagsHTML}</div>
             <h3 class="achievement-title">
               <a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title}</a>
             </h3>
             <p class="achievement-body">${item.body}</p>
+            <div class="achievement-tags">${tagsHTML}</div>
           </div>
         </div>
       `;
@@ -85,9 +85,9 @@ function displayAchievements(achievementsArray) {
           <div class="achievement-date">${formattedDate}</div>
           <div class="achievement-point"></div>
           <div class="achievement-content" data-date="${formattedDate}">
-            <div class="achievement-tags">${tagsHTML}</div>
             <h3 class="achievement-title">${item.title}</h3>
             <p class="achievement-body">${item.body}</p>
+            <div class="achievement-tags">${tagsHTML}</div>
           </div>
         </div>
       `;
