@@ -57,10 +57,10 @@ function displayAchievements(achievementsArray) {
     const date = new Date(item.release_date);
     const formattedDate = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
     
-    // タグのHTML生成
+    // タグのHTML生成（#付きのライトなテキスト表示）
     const tagsHTML = item.tags.map(tag => {
       const tagClass = tag === 'music' ? 'tag-music' : 'tag-infomation';
-      const tagLabel = tag === 'music' ? 'Music' : 'Information';
+      const tagLabel = tag === 'music' ? 'music' : 'information';
       return `<span class="achievement-tag ${tagClass}">${tagLabel}</span>`;
     }).join('');
     
