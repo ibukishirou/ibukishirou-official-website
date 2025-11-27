@@ -60,8 +60,7 @@
 }
 
 .achievement-item {
-  display: grid;
-  grid-template-columns: 140px auto 1fr;
+  display: flex;
   gap: 2rem;
   padding: 3rem 0;
   position: relative;
@@ -225,9 +224,10 @@
   }
   
   .achievement-item {
-    grid-template-columns: auto 1fr;
-    gap: 1.5rem;
+    flex-direction: column;
+    gap: 0;
     padding: 2rem 0;
+    padding-left: 2rem;
   }
   
   .achievement-date {
@@ -235,13 +235,13 @@
   }
   
   .achievement-point {
-    margin-top: 0.5rem;
-    margin-left: -8px;
-    z-index: 10;
+    left: -8px;
+    top: calc(2rem + 0.5rem);
   }
   
   .achievement-content {
     padding: 1rem;
+    margin-left: 0;
   }
   
   .achievement-content:hover {
