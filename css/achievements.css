@@ -104,7 +104,7 @@
   padding-top: 0.5rem;
 }
 
-/* 中央のポイント */
+/* 中央のポイント - ラインの上に重ねる */
 .achievement-point {
   width: 16px;
   height: 16px;
@@ -112,7 +112,7 @@
   border: 3px solid var(--color-bg);
   border-radius: 50%;
   position: relative;
-  z-index: 2;
+  z-index: 10;
   box-shadow: 0 0 0 3px var(--color-secondary);
   flex-shrink: 0;
   margin-top: 0.5rem;
@@ -237,6 +237,7 @@
   .achievement-point {
     margin-top: 0.5rem;
     margin-left: -8px;
+    z-index: 10;
   }
   
   .achievement-content {

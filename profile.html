@@ -201,18 +201,23 @@
         if (!container) return;
         
         const snsConfig = [
-          { key: 'youtube', icon: '▶' },
-          { key: 'x_main', icon: '𝕏' },
-          { key: 'x_sub', icon: '𝕏' },
-          { key: 'tiktok', icon: '♪' },
-          { key: 'marshmallow', icon: '📧' },
-          { key: 'booth', icon: '🛒' },
-          { key: 'wishlist', icon: '🎁' }
+          { key: 'youtube', name: 'YouTube', icon: '▶' },
+          { key: 'x_main', name: 'X (Main)', icon: '𝕏' },
+          { key: 'x_sub', name: 'X (Sub)', icon: '𝕏' },
+          { key: 'tiktok', name: 'TikTok', icon: '♪' },
+          { key: 'marshmallow', name: 'マシュマロ', icon: '📧' },
+          { key: 'booth', name: 'BOOTH', icon: '🛒' },
+          { key: 'wishlist', name: 'Wishlist', icon: '🎁' }
         ];
         
         container.innerHTML = snsConfig.map(sns => {
           if (linksData[sns.key]) {
-            return `<a href="${linksData[sns.key]}" target="_blank" rel="noopener noreferrer" class="profile-social-link" title="${sns.key}">${sns.icon}</a>`;
+            return `
+              <a href="${linksData[sns.key]}" target="_blank" rel="noopener noreferrer" class="profile-social-link">
+                <div class="profile-social-icon">${sns.icon}</div>
+                <div class="profile-social-name">${sns.name}</div>
+              </a>
+            `;
           }
           return '';
         }).join('');
