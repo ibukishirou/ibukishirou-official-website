@@ -44,7 +44,7 @@
   position: relative;
 }
 
-/* 中央の縦線 */
+/* 中央の縦線 - 丸の下に表示 */
 .achievements-list::before {
   content: '';
   position: absolute;
@@ -57,7 +57,7 @@
     var(--color-primary) 50%, 
     var(--color-secondary) 100%);
   transform: translateX(-50%);
-  z-index: 1;
+  z-index: 5;
 }
 
 /* 各アイテム */
@@ -123,7 +123,7 @@
   left: 50%;
   top: 0;
   transform: translateX(-50%);
-  z-index: 10;
+  z-index: 100;
   box-shadow: 0 0 0 4px rgba(210, 105, 30, 0.3);
 }
 
