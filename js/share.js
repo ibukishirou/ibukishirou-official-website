@@ -21,25 +21,27 @@
   // シェアボタンのHTML（初期状態）
   const shareButtonsHTML = `
     <div class="share-buttons">
-      <!-- YouTube遷移ボタン -->
-      <a href="#" class="share-btn youtube" title="YouTubeへ" aria-label="YouTubeへ" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-        </svg>
-      </a>
-      <!-- X遷移ボタン -->
-      <a href="#" class="share-btn twitter" title="Xへ" aria-label="Xへ" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-        </svg>
-      </a>
-      <!-- シェアメニュートグルボタン -->
-      <a href="#" class="share-btn share-toggle" title="シェアメニュー" aria-label="シェアメニューを開く">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
-          <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
-        </svg>
-      </a>
-      <!-- 展開されるシェアオプション（初期は非表示） -->
+      <div class="share-main-buttons">
+        <!-- YouTube遷移ボタン -->
+        <a href="#" class="share-btn youtube" title="YouTubeへ" aria-label="YouTubeへ" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+        </a>
+        <!-- X遷移ボタン -->
+        <a href="#" class="share-btn twitter" title="Xへ" aria-label="Xへ" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <!-- シェアメニュートグルボタン -->
+        <a href="#" class="share-btn share-toggle" title="シェアメニュー" aria-label="シェアメニューを開く">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+          </svg>
+        </a>
+      </div>
+      <!-- 展開されるシェアオプション（初期は非表示、左側に横一列表示） -->
       <div class="share-menu" style="display: none;">
         <a href="#" class="share-btn share-option line" title="LINEでシェア" aria-label="LINEでシェア">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -96,6 +98,7 @@
   // シェアメニューの開閉
   function handleToggleMenu(e) {
     e.preventDefault();
+    e.stopPropagation(); // イベントバブリングを防ぐ
     
     const shareMenu = document.querySelector('.share-menu');
     const toggleBtn = document.querySelector('.share-btn.share-toggle');
@@ -107,27 +110,57 @@
     if (shareMenuExpanded) {
       // メニューを表示
       shareMenu.style.display = 'flex';
-      toggleBtn.classList.add('active');
       toggleBtn.setAttribute('aria-label', 'シェアメニューを閉じる');
       
       // アニメーション効果
       const options = shareMenu.querySelectorAll('.share-option');
       options.forEach((option, index) => {
-        option.style.animation = `slideInUp 0.3s ease forwards ${index * 0.05}s`;
+        option.style.animation = `slideInLeft 0.3s ease forwards ${index * 0.05}s`;
         option.style.opacity = '0';
       });
-    } else {
-      // メニューを非表示
-      const options = shareMenu.querySelectorAll('.share-option');
-      options.forEach((option, index) => {
-        option.style.animation = `slideOutDown 0.3s ease forwards ${index * 0.05}s`;
-      });
       
+      // 外側クリックでメニューを閉じる処理を追加
       setTimeout(() => {
-        shareMenu.style.display = 'none';
-        toggleBtn.classList.remove('active');
+        document.addEventListener('click', closeMenuOnOutsideClick);
+      }, 100);
+    } else {
+      closeShareMenu();
+    }
+  }
+  
+  // シェアメニューを閉じる
+  function closeShareMenu() {
+    const shareMenu = document.querySelector('.share-menu');
+    const toggleBtn = document.querySelector('.share-btn.share-toggle');
+    
+    if (!shareMenu || !shareMenuExpanded) return;
+    
+    shareMenuExpanded = false;
+    
+    // メニューを非表示
+    const options = shareMenu.querySelectorAll('.share-option');
+    options.forEach((option, index) => {
+      option.style.animation = `slideOutRight 0.3s ease forwards ${index * 0.05}s`;
+    });
+    
+    setTimeout(() => {
+      shareMenu.style.display = 'none';
+      if (toggleBtn) {
         toggleBtn.setAttribute('aria-label', 'シェアメニューを開く');
-      }, 300);
+      }
+    }, 300);
+    
+    // 外側クリックイベントを削除
+    document.removeEventListener('click', closeMenuOnOutsideClick);
+  }
+  
+  // 外側をクリックしたときにメニューを閉じる
+  function closeMenuOnOutsideClick(e) {
+    const shareButtons = document.querySelector('.share-buttons');
+    
+    // シェアボタン領域外をクリックした場合
+    if (shareButtons && !shareButtons.contains(e.target)) {
+      closeShareMenu();
     }
   }
   
@@ -212,24 +245,24 @@
       from { opacity: 1; transform: translate(-50%, -50%); }
       to { opacity: 0; transform: translate(-50%, -40%); }
     }
-    @keyframes slideInUp {
+    @keyframes slideInLeft {
       from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateX(20px);
       }
       to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateX(0);
       }
     }
-    @keyframes slideOutDown {
+    @keyframes slideOutRight {
       from {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateX(0);
       }
       to {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateX(20px);
       }
     }
   `;
