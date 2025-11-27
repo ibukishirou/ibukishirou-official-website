@@ -2,18 +2,34 @@
   {
     "id": "250922",
     "title": "伊吹しろうデビュー",
-    "body": "VTuberデビューしました。",
+    "body": "VTuberとして9/22に活動を開始しました。",
     "link": "https://www.youtube.com/@ibukishirou",
     "tags": ["infomation"],
     "release_date": "2025-09-22"
   },
   {
-    "id": "250922-2",
+    "id": "250923",
     "title": "1st 歌ってみた「狂乱hey kids!!」公開",
     "body": "VTuberデビューを記念して「狂乱hey kids!!」をリリースしました。",
     "link": "https://youtu.be/ebn1HkmANqg",
     "tags": ["music"],
-    "release_date": "2025-09-22"
+    "release_date": "2025-09-23"
+  },
+  {
+    "id": "251024",
+    "title": "デビュー1ヵ月記念 歌ってみた「私は最強」公開",
+    "body": "デビュー1ヵ月と同時にチャンネル登録者数も2,000人を突破いたしました。",
+    "link": "https://youtu.be/9Q0JNp02gdg",
+    "tags": ["music"],
+    "release_date": "2025-10-24"
+  },
+  {
+    "id": "251109",
+    "title": "収益化記念「MAGIC」公開",
+    "body": "デビュー1.5か月と共にYouTube収益化も達成しました。",
+    "link": "https://youtu.be/ma38CHcOcM0",
+    "tags": ["music"],
+    "release_date": "2025-11-09"
   },
   {
     "id": "251127",
