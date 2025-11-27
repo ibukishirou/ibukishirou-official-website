@@ -1129,7 +1129,7 @@ footer {
 }
 
 /* ============================================
-   シェアボタン
+   シェアボタン（改修版）
    ============================================ */
 
 .share-buttons {
@@ -1169,19 +1169,58 @@ footer {
   box-shadow: 0 5px 20px rgba(139, 0, 0, 0.3);
 }
 
-.share-btn.twitter:hover {
-  background: #1DA1F2;
-  border-color: #1DA1F2;
+/* YouTube遷移ボタン */
+.share-btn.youtube:hover {
+  background: #FF0000;
+  border-color: #FF0000;
 }
 
-.share-btn.url-copy:hover {
+/* X遷移ボタン */
+.share-btn.twitter:hover {
+  background: #000000;
+  border-color: #000000;
+}
+
+/* シェアトグルボタン */
+.share-btn.share-toggle:hover {
   background: var(--color-secondary);
   border-color: var(--color-secondary);
+}
+
+.share-btn.share-toggle.active {
+  background: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+
+.share-btn.share-toggle.active svg {
+  fill: #ffffff;
+}
+
+/* シェアメニュー */
+.share-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/* シェアオプションボタン */
+.share-btn.share-option {
+  opacity: 0;
 }
 
 .share-btn.line:hover {
   background: #06C755;
   border-color: #06C755;
+}
+
+.share-btn.twitter-share:hover {
+  background: #000000;
+  border-color: #000000;
+}
+
+.share-btn.url-copy:hover {
+  background: var(--color-secondary);
+  border-color: var(--color-secondary);
 }
 
 .share-btn:hover svg {
@@ -1203,6 +1242,10 @@ footer {
   .share-btn svg {
     width: 20px;
     height: 20px;
+  }
+  
+  .share-menu {
+    gap: 0.6rem;
   }
 }
 
