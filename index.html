@@ -42,7 +42,7 @@
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "伊吹しろう",
-    "alternateName": "ibuki shirou",
+    "alternateName": "Ibuki Shirou",
     "description": "歌・トーク・ゲームを中心に活動するVTuber",
     "url": "https://ibukishirou.com/",
     "image": "https://ibukishirou.com/assets/img/profile_full.webp",
@@ -66,7 +66,7 @@
     "url": "https://ibukishirou.com/",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://ibukishirou.com/news.html?q={search_term_string}",
+      "target": "https://ibukishirou.com/achievements.html?q={search_term_string}",
       "query-input": "required name=search_term_string"
     }
   }
@@ -116,7 +116,7 @@
   <!-- キャッチフレーズセクション -->
   <section id="catchphrase">
     <h2 class="section-title">Virtual Talent</h2>
-    <p class="catchphrase-subtitle">伊吹しろう / ibuki shirou</p>
+    <p class="catchphrase-subtitle">伊吹しろう / Ibuki Shirou</p>
     <p class="catchphrase-company">個人事務所ULRIC</p>
     <p class="catchphrase-description">配信・企画・グッズなど幅広く展開。</p>
     <p class="catchphrase-text"><span class="catchphrase-line1">気づけば君の毎日に、</span><span class="catchphrase-line2">俺がいる。</span></p>
@@ -127,17 +127,6 @@
     <h2 class="section-title">Featured Works</h2>
     <div class="card-grid" id="featured-works-container">
       <!-- JSで動的に読み込み -->
-    </div>
-  </section>
-
-  <!-- 最新ニュース -->
-  <section id="latest-news">
-    <h2 class="section-title">Latest News</h2>
-    <div class="news-list" id="news-container">
-      <!-- JSで動的に読み込み -->
-    </div>
-    <div style="text-align: center; margin-top: 2rem;">
-      <a href="news.html" class="btn">もっと見る</a>
     </div>
   </section>
 
@@ -156,29 +145,8 @@
   <script src="js/components.js"></script>
   <script src="js/loading.js"></script>
   <script src="js/main.js"></script>
-  <script src="js/fetch-news.js"></script>
   <script src="js/fetch-links.js"></script>
   <script>
-    // Homeページ用：最新3件のみ表示
-    async function loadLatestNews() {
-      try {
-        const response = await fetch('data/news.json');
-        const newsData = await response.json();
-        
-        const today = new Date();
-        const validNews = newsData.filter(item => {
-          const startDate = new Date(item.startDate);
-          const endDate = new Date(item.endDate);
-          return today >= startDate && today <= endDate;
-        });
-        
-        validNews.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
-        displayNews(validNews, 3);
-      } catch (error) {
-        console.error('ニュースの読み込みに失敗しました:', error);
-      }
-    }
-    
     // Featured Worksの読み込み
     async function loadFeaturedWorks() {
       try {
@@ -211,7 +179,6 @@
       }
     }
     
-    loadLatestNews();
     loadFeaturedWorks();
   </script>
   <script src="js/share.js"></script>
