@@ -16,8 +16,8 @@ function displaySNSLinks(links) {
   
   const snsConfig = [
     { key: 'youtube', name: 'YouTube', icon: 'youtube' },
-    { key: 'x_main', name: 'X (Main)', icon: 'twitter' },
-    { key: 'x_sub', name: 'X (Sub)', icon: 'twitter' },
+    { key: 'x_main', name: 'X (Main)', icon: 'x' },
+    { key: 'x_sub', name: 'X (Sub)', icon: 'x' },
     { key: 'tiktok', name: 'TikTok', icon: 'music' },
     { key: 'instagram', name: 'Instagram', icon: 'instagram' },
     { key: 'marshmallow', name: 'マシュマロ', icon: 'mail' },
