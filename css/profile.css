@@ -93,10 +93,8 @@
   line-height: 1;
 }
 
-.profile-social-icon svg {
-  display: block;
-  width: 1.2rem;
-  height: 1.2rem;
+.profile-social-icon i {
+  font-size: 1.2rem;
 }
 
 .profile-social-name {

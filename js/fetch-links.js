@@ -15,32 +15,27 @@ function displaySNSLinks(links) {
   if (!container) return;
   
   const snsConfig = [
-    { key: 'youtube', name: 'YouTube', icon: 'youtube' },
-    { key: 'x_main', name: 'X (Main)', icon: 'twitter' },
-    { key: 'x_sub', name: 'X (Sub)', icon: 'twitter' },
-    { key: 'tiktok', name: 'TikTok', icon: 'music' },
-    { key: 'instagram', name: 'Instagram', icon: 'instagram' },
-    { key: 'marshmallow', name: 'マシュマロ', icon: 'mail' },
-    { key: 'booth', name: 'BOOTH', icon: 'shopping-bag' },
-    { key: 'wishlist', name: 'Wishlist', icon: 'gift' }
+    { key: 'youtube', name: 'YouTube', icon: 'ri-youtube-line' },
+    { key: 'x_main', name: 'X (Main)', icon: 'ri-twitter-x-line' },
+    { key: 'x_sub', name: 'X (Sub)', icon: 'ri-twitter-x-line' },
+    { key: 'tiktok', name: 'TikTok', icon: 'ri-tiktok-line' },
+    { key: 'instagram', name: 'Instagram', icon: 'ri-instagram-line' },
+    { key: 'marshmallow', name: 'マシュマロ', icon: 'ri-mail-line' },
+    { key: 'booth', name: 'BOOTH', icon: 'ri-shopping-bag-line' },
+    { key: 'wishlist', name: 'Wishlist', icon: 'ri-gift-line' }
   ];
   
   container.innerHTML = snsConfig.map(sns => {
     if (links[sns.key]) {
       return `
         <a href="${links[sns.key]}" target="_blank" rel="noopener noreferrer" class="sns-link">
-          <div class="sns-icon"><i data-lucide="${sns.icon}"></i></div>
+          <div class="sns-icon"><i class="${sns.icon}"></i></div>
           <div class="sns-name">${sns.name}</div>
         </a>
       `;
     }
     return '';
   }).join('');
-  
-  // Lucide Icons を初期化
-  if (typeof lucide !== 'undefined') {
-    lucide.createIcons();
-  }
 }
 
 // ページ読み込み時に実行
