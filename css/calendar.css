@@ -208,15 +208,15 @@
 
 .event-item {
   font-size: 0.75rem;
-  padding: 0.25rem 0.4rem;
-  border-radius: 4px;
+  padding: 0.3rem 0.4rem;
+  border-radius: 6px;
   cursor: pointer;
   transition: var(--transition);
   font-family: var(--font-secondary);
   text-decoration: none;
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.25rem;
   color: var(--color-text);
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -226,6 +226,7 @@
 .event-item:hover {
   transform: scale(1.02);
   filter: brightness(1.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .event-item.regular {
@@ -238,31 +239,42 @@
   font-weight: 500;
 }
 
-.event-content {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 100%;
-}
-
 .event-time {
   font-size: 0.7rem;
-  opacity: 0.9;
-  margin-right: 0.25rem;
+  font-weight: 600;
+  opacity: 0.95;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.event-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
 }
 
 .event-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.2rem;
+  gap: 0.25rem;
   margin-top: 0.1rem;
 }
 
 .event-tag {
-  font-size: 0.65rem;
-  opacity: 0.85;
-  font-weight: 400;
+  font-size: 0.6rem;
+  font-weight: 500;
+  padding: 0.15rem 0.4rem;
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
   white-space: nowrap;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* 複数日イベントのバー表示 */
@@ -354,19 +366,18 @@
 
   .event-item {
     font-size: 0.6rem;
-    padding: 0.15rem 0.2rem;
-    gap: 0.1rem;
+    padding: 0.2rem 0.25rem;
+    gap: 0.15rem;
     min-height: auto;
   }
 
-  .event-content {
+  .event-time {
     font-size: 0.6rem;
-    line-height: 1.2;
   }
 
-  .event-time {
-    font-size: 0.55rem;
-    margin-right: 0.15rem;
+  .event-title {
+    font-size: 0.65rem;
+    -webkit-line-clamp: 2;
   }
 
   .event-tags {
@@ -376,6 +387,8 @@
 
   .event-tag {
     font-size: 0.55rem;
+    padding: 0.1rem 0.3rem;
+    border-radius: 10px;
   }
 }
 
@@ -443,18 +456,17 @@
 
   .event-item {
     font-size: 0.55rem;
-    padding: 0.1rem 0.15rem;
-    gap: 0.05rem;
-  }
-
-  .event-content {
-    font-size: 0.55rem;
-    line-height: 1.1;
+    padding: 0.15rem 0.2rem;
+    gap: 0.1rem;
   }
 
   .event-time {
-    font-size: 0.5rem;
-    margin-right: 0.1rem;
+    font-size: 0.55rem;
+  }
+
+  .event-title {
+    font-size: 0.6rem;
+    -webkit-line-clamp: 2;
   }
 
   .event-tags {
@@ -463,5 +475,7 @@
 
   .event-tag {
     font-size: 0.5rem;
+    padding: 0.08rem 0.25rem;
+    border-radius: 8px;
   }
 }

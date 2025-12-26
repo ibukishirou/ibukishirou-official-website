@@ -269,17 +269,17 @@ function createEventElement(event) {
     eventItem.target = '_blank';
     eventItem.rel = 'noopener noreferrer';
     
-    // コンテンツ部分
-    const contentDiv = document.createElement('div');
-    contentDiv.className = 'event-content';
+    // 時刻（上部）
+    const timeDiv = document.createElement('div');
+    timeDiv.className = 'event-time';
+    timeDiv.textContent = `${formatTime(event.start_time)}-${formatTime(event.end_time)}`;
+    eventItem.appendChild(timeDiv);
     
-    const time = document.createElement('span');
-    time.className = 'event-time';
-    time.textContent = `${formatTime(event.start_time)}-${formatTime(event.end_time)} `;
-    
-    contentDiv.appendChild(time);
-    contentDiv.appendChild(document.createTextNode(event.title));
-    eventItem.appendChild(contentDiv);
+    // タイトル
+    const titleDiv = document.createElement('div');
+    titleDiv.className = 'event-title';
+    titleDiv.textContent = event.title;
+    eventItem.appendChild(titleDiv);
     
     // タグ表示
     if (event.tags && event.tags.length > 0) {
@@ -288,7 +288,7 @@ function createEventElement(event) {
       event.tags.forEach(tag => {
         const tagSpan = document.createElement('span');
         tagSpan.className = 'event-tag';
-        tagSpan.textContent = `#${tag}`;
+        tagSpan.textContent = tag;
         tagsDiv.appendChild(tagSpan);
       });
       eventItem.appendChild(tagsDiv);
@@ -306,30 +306,48 @@ function createEventElement(event) {
     eventItem.style.backgroundColor = event.color;
     eventItem.style.color = '#ffffff';
     
-    // コンテンツ部分
-    const contentDiv = document.createElement('div');
-    contentDiv.className = 'event-content';
+    // 時刻（上部）- 複数日イベントの場合は開始/終了を区別
+    const timeDiv = document.createElement('div');
+    timeDiv.className = 'event-time';
     
-    // 開始日または単日イベントの場合のみ時刻を表示
-    if (event.isStart || !event.isMultiDay) {
+    if (event.isMultiDay) {
+      if (event.isStart) {
+        // 開始日: "時刻~"
+        const startDate = new Date(event.start);
+        timeDiv.textContent = `${formatTimeFromDate(startDate)}~`;
+      } else if (event.isEnd) {
+        // 終了日: "~時刻"
+        const endDate = new Date(event.end);
+        timeDiv.textContent = `~${formatTimeFromDate(endDate)}`;
+      } else {
+        // 中間日: 時刻なし
+        timeDiv.textContent = '';
+      }
+    } else {
+      // 単日イベント: "開始-終了"
       const startDate = new Date(event.start);
-      const time = document.createElement('span');
-      time.className = 'event-time';
-      time.textContent = `${formatTimeFromDate(startDate)} `;
-      contentDiv.appendChild(time);
+      const endDate = new Date(event.end);
+      timeDiv.textContent = `${formatTimeFromDate(startDate)}-${formatTimeFromDate(endDate)}`;
     }
     
-    contentDiv.appendChild(document.createTextNode(event.title));
-    eventItem.appendChild(contentDiv);
+    if (timeDiv.textContent) {
+      eventItem.appendChild(timeDiv);
+    }
     
-    // タグ表示（開始日のみ）
+    // タイトル
+    const titleDiv = document.createElement('div');
+    titleDiv.className = 'event-title';
+    titleDiv.textContent = event.title;
+    eventItem.appendChild(titleDiv);
+    
+    // タグ表示（開始日または単日イベントのみ）
     if ((event.isStart || !event.isMultiDay) && event.tags && event.tags.length > 0) {
       const tagsDiv = document.createElement('div');
       tagsDiv.className = 'event-tags';
       event.tags.forEach(tag => {
         const tagSpan = document.createElement('span');
         tagSpan.className = 'event-tag';
-        tagSpan.textContent = `#${tag}`;
+        tagSpan.textContent = tag;
         tagsDiv.appendChild(tagSpan);
       });
       eventItem.appendChild(tagsDiv);
