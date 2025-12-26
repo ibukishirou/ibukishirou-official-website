@@ -26,6 +26,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const response = await fetch('data/calendar.json');
     calendarData = await response.json();
     
+    console.log('Calendar data loaded:', calendarData);
+    
     // フィルターイベントリスナー
     const filterRegular = document.getElementById('filter-regular');
     if (filterRegular) {
@@ -74,6 +76,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 function renderCalendar(date) {
   const year = date.getFullYear();
   const month = date.getMonth();
+  
+  console.log('Rendering calendar for:', year, month + 1);
   
   // 月のタイトルを更新
   document.getElementById('current-month').textContent = 
@@ -127,9 +131,6 @@ function renderCalendar(date) {
   
   container.innerHTML = '';
   container.appendChild(grid);
-  
-  // 複数日イベントのバーを追加
-  addMultiDayEventBars(grid, year, month);
 }
 
 // ============================================
@@ -150,7 +151,7 @@ function createDayCell(date, isOtherMonth) {
   if (dayOfWeek === 6) cell.classList.add('saturday');
   
   // データ属性として日付を保存
-  cell.dataset.date = date.toISOString().split('T')[0];
+  cell.dataset.date = formatDateString(date);
   
   // 日付番号
   const dayNumber = document.createElement('div');
@@ -162,9 +163,10 @@ function createDayCell(date, isOtherMonth) {
   const eventsList = document.createElement('div');
   eventsList.className = 'events-list';
   
-  // 単日イベントを取得して表示
-  const events = getSingleDayEventsForDate(date);
-  events.forEach(event => {
+  // すべてのイベント（定期配信 + 特別イベント）を取得
+  const allEvents = getEventsForDate(date);
+  
+  allEvents.forEach(event => {
     const eventElement = createEventElement(event);
     if (eventElement) {
       eventsList.appendChild(eventElement);
@@ -177,10 +179,10 @@ function createDayCell(date, isOtherMonth) {
 }
 
 // ============================================
-// 単日イベント取得（定期配信のみ）
+// 日付のイベント取得（定期配信 + 特別イベント）
 // ============================================
 
-function getSingleDayEventsForDate(date) {
+function getEventsForDate(date) {
   const events = [];
   
   if (!calendarData) return events;
@@ -196,7 +198,33 @@ function getSingleDayEventsForDate(date) {
           start_time: regular.start_time,
           end_time: regular.end_time,
           link: regular.link,
-          date: date
+          sortTime: regular.start_time
+        });
+      }
+    });
+  }
+  
+  // 特別イベントのチェック
+  if (calendarData.events) {
+    calendarData.events.forEach(event => {
+      if (isEventOnDate(event, date)) {
+        const startDate = new Date(event.start);
+        const endDate = new Date(event.end);
+        const dateStr = formatDateString(date);
+        const startDateStr = formatDateString(startDate);
+        const endDateStr = formatDateString(endDate);
+        
+        events.push({
+          type: 'event',
+          title: event.title,
+          start: event.start,
+          end: event.end,
+          link: event.link,
+          color: event.color || '#CD5C5C',
+          isStart: dateStr === startDateStr,
+          isEnd: dateStr === endDateStr,
+          isMultiDay: startDateStr !== endDateStr,
+          sortTime: formatTimeFromDate(startDate)
         });
       }
     });
@@ -204,18 +232,35 @@ function getSingleDayEventsForDate(date) {
   
   // 時刻順にソート
   events.sort((a, b) => {
-    return a.start_time.localeCompare(b.start_time);
+    return a.sortTime.localeCompare(b.sortTime);
   });
   
   return events;
 }
 
 // ============================================
-// イベント要素の作成（定期配信）
+// イベントが指定日付に該当するか確認
+// ============================================
+
+function isEventOnDate(event, date) {
+  const startDate = new Date(event.start);
+  const endDate = new Date(event.end);
+  
+  // 日付のみで比較（時刻は無視）
+  const checkDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const eventStartDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+  const eventEndDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+  
+  return checkDate >= eventStartDate && checkDate <= eventEndDate;
+}
+
+// ============================================
+// イベント要素の作成
 // ============================================
 
 function createEventElement(event) {
   if (event.type === 'regular') {
+    // 定期配信
     const eventItem = document.createElement('a');
     eventItem.className = 'event-item regular';
     eventItem.href = event.link;
@@ -230,98 +275,32 @@ function createEventElement(event) {
     eventItem.appendChild(document.createTextNode(event.title));
     
     return eventItem;
+    
+  } else if (event.type === 'event') {
+    // 特別イベント
+    const eventItem = document.createElement('a');
+    eventItem.className = 'event-item event';
+    eventItem.href = event.link;
+    eventItem.target = '_blank';
+    eventItem.rel = 'noopener noreferrer';
+    eventItem.style.backgroundColor = event.color;
+    eventItem.style.color = '#ffffff';
+    
+    // 開始日または単日イベントの場合のみ時刻を表示
+    if (event.isStart || !event.isMultiDay) {
+      const startDate = new Date(event.start);
+      const time = document.createElement('span');
+      time.className = 'event-time';
+      time.textContent = `${formatTimeFromDate(startDate)} `;
+      eventItem.appendChild(time);
+    }
+    
+    eventItem.appendChild(document.createTextNode(event.title));
+    
+    return eventItem;
   }
   
   return null;
-}
-
-// ============================================
-// 複数日イベントのバー追加
-// ============================================
-
-function addMultiDayEventBars(grid, year, month) {
-  if (!calendarData || !calendarData.events) return;
-  
-  // グリッドから日付セルを取得（曜日ヘッダーを除く）
-  const dayCells = Array.from(grid.children).filter(cell => 
-    cell.classList.contains('calendar-day')
-  );
-  
-  // 週ごとにグループ化
-  const weeks = [];
-  for (let i = 0; i < dayCells.length; i += 7) {
-    weeks.push(dayCells.slice(i, i + 7));
-  }
-  
-  // 各イベントを処理
-  calendarData.events.forEach((event, eventIndex) => {
-    const startDate = new Date(event.start);
-    const endDate = new Date(event.end);
-    const color = event.color || '#CD5C5C'; // デフォルト色
-    
-    // 各週について処理
-    weeks.forEach((week, weekIndex) => {
-      const weekStart = new Date(week[0].dataset.date);
-      const weekEnd = new Date(week[6].dataset.date);
-      
-      // このイベントがこの週に表示されるか確認
-      if (endDate >= weekStart && startDate <= weekEnd) {
-        // バーの開始と終了を計算
-        let barStart = 0;
-        let barEnd = 6;
-        
-        for (let i = 0; i < 7; i++) {
-          const cellDate = new Date(week[i].dataset.date);
-          if (cellDate < startDate) {
-            barStart = i + 1;
-          }
-          if (cellDate > endDate) {
-            barEnd = i - 1;
-            break;
-          }
-        }
-        
-        // バーを追加
-        if (barStart <= barEnd) {
-          const isStart = startDate >= weekStart;
-          const isEnd = endDate <= weekEnd;
-          
-          // 最初のセルにバーを追加
-          const startCell = week[barStart];
-          const eventBar = document.createElement('div');
-          eventBar.className = 'event-bar';
-          eventBar.style.gridColumn = `${barStart + 1} / ${barEnd + 2}`;
-          eventBar.style.gridRow = `${weekIndex + 2}`;
-          
-          const eventBarContent = document.createElement('a');
-          eventBarContent.className = 'event-bar-content';
-          eventBarContent.href = event.link;
-          eventBarContent.target = '_blank';
-          eventBarContent.rel = 'noopener noreferrer';
-          eventBarContent.style.backgroundColor = color;
-          
-          // 開始日のみタイトルと時刻を表示
-          if (isStart) {
-            const startDateTime = new Date(event.start);
-            const time = document.createElement('span');
-            time.className = 'event-time';
-            time.textContent = `${formatTimeFromDate(startDateTime)} `;
-            eventBarContent.appendChild(time);
-            eventBarContent.appendChild(document.createTextNode(event.title));
-          }
-          
-          eventBar.appendChild(eventBarContent);
-          
-          // バーをグリッドに直接追加
-          // イベントリストの後に挿入
-          const eventsList = startCell.querySelector('.events-list');
-          if (eventsList) {
-            eventsList.appendChild(eventBar);
-          }
-        }
-      }
-    });
-  });
 }
 
 // ============================================
@@ -338,6 +317,13 @@ function formatTimeFromDate(date) {
   const hours = date.getHours();
   const minutes = date.getMinutes().toString().padStart(2, '0');
   return `${hours}:${minutes}`;
+}
+
+function formatDateString(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
 
 function updateNavigationButtons() {
