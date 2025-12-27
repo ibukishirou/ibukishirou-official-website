@@ -88,8 +88,6 @@ Pull Request作成
 <script src="js/sw-register.js"></script>
 ```
 
-**重要**: `js/main.js` の読み込みは必須。これがないとハンバーガーメニューが動作しない。
-
 3. `sitemap.xml` に新規URLを追加
 
 4. `sw.js` の `STATIC_ASSETS` 配列に新規HTMLファイルを追加
