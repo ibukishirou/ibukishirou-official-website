@@ -76,6 +76,19 @@ document.addEventListener('DOMContentLoaded', async () => {
       touchStartY = e.changedTouches[0].screenY;
     }, { passive: true });
     
+    calendarContainer.addEventListener('touchmove', (e) => {
+      // スワイプ中はイベント伝播を防止（ハンバーガーメニューなどが動かないように）
+      const touchCurrentX = e.changedTouches[0].screenX;
+      const touchCurrentY = e.changedTouches[0].screenY;
+      const horizontalDistance = Math.abs(touchCurrentX - touchStartX);
+      const verticalDistance = Math.abs(touchCurrentY - touchStartY);
+      
+      // 水平方向のスワイプの場合は伝播を防止
+      if (horizontalDistance > verticalDistance && horizontalDistance > 10) {
+        e.stopPropagation();
+      }
+    }, { passive: false });
+    
     calendarContainer.addEventListener('touchend', (e) => {
       touchEndX = e.changedTouches[0].screenX;
       touchEndY = e.changedTouches[0].screenY;
@@ -652,14 +665,14 @@ function getColorFromTags(tags) {
   
   // タグごとの色マッピング（優先度順）
   const tagColorMap = {
-    '配信': '#FFB6C1',      // 薄い桃色
+    '配信': '#ff1493',      // ディープピンク
     '記念': '#dc143c',      // 深紅色
     'メン限': '#FF0000',    // 赤色
-    'コラボ': '#4169E1',    // 藍色
-    'マダミス': '#4169E1',  // 藍色
-    'TRPG': '#4169E1',      // 藍色
-    'リアイベ': '#7FFF00',  // 新緑色
-    '企業コラボ': '#7FFF00' // 新緑色
+    'コラボ': '#0000ff',    // 青色
+    'マダミス': '#0000ff',  // 青色
+    'TRPG': '#0000ff',      // 青色
+    'リアイベ': '#228b22',  // フォレストグリーン
+    '企業コラボ': '#228b22' // フォレストグリーン
   };
   
   // 最初にマッチしたタグの色を返す

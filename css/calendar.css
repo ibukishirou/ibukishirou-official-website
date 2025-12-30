@@ -69,7 +69,7 @@
 }
 
 .filter-color.regular {
-  background-color: var(--color-secondary);
+  background-color: #ff8c00;
 }
 
 /* ============================================
@@ -242,7 +242,7 @@
 }
 
 .event-item.regular {
-  background-color: var(--color-secondary);
+  background-color: #ff8c00;
   color: #ffffff;
 }
 
