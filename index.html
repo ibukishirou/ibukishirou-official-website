@@ -176,7 +176,13 @@
   <script src="js/main.js"></script>
   <script src="js/fetch-links.js"></script>
   <script>
-    // Featured Worksの読み込み
+    // YouTube動画IDを抽出
+    function extractYouTubeVideoId(url) {
+      const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([^&?\/\s]+)/);
+      return match ? match[1] : '';
+    }
+    
+    // Featured Worksの読み込み完了を待ってからスクロールを開始
     async function loadFeaturedWorks() {
       try {
         const response = await fetch('data/works.json');
@@ -203,129 +209,114 @@
             </a>
           `;
         }).join('');
+        
+        // コンテンツ読み込み完了後、画像の読み込みを待つ
+        const images = container.querySelectorAll('img');
+        await Promise.all(Array.from(images).map(img => {
+          if (img.complete) return Promise.resolve();
+          return new Promise(resolve => {
+            img.onload = resolve;
+            img.onerror = resolve;
+          });
+        }));
+        
+        // 自動スクロール開始
+        initAutoScroll();
+        
       } catch (error) {
         console.error('Featured Worksの読み込みに失敗しました:', error);
       }
     }
     
-    loadFeaturedWorks();
-  </script>
-  <script>
-    // Featured Worksのシームレスな無限スクロール機能
-    (function() {
-      let isScrolling = false;
-      let isPaused = false;
-      const scrollSpeed = 0.5; // ピクセル/フレーム（ゆっくり）
-      let container = null;
-      let originalWidth = 0;
-      
-      function cloneContent() {
-        container = document.getElementById('featured-works-container');
-        if (!container) return;
-        
-        // オリジナルのコンテンツを取得
-        const originalContent = Array.from(container.children);
-        if (originalContent.length === 0) return;
-        
-        // オリジナルの幅を記録
-        originalWidth = container.scrollWidth;
-        
-        // コンテンツを複製して追加（シームレスなループのため）
-        originalContent.forEach(item => {
-          const clone = item.cloneNode(true);
-          container.appendChild(clone);
-        });
-        
-        // さらにもう一度複製（スムーズな切り替えのため）
-        originalContent.forEach(item => {
-          const clone = item.cloneNode(true);
-          container.appendChild(clone);
-        });
+    // Featured Worksのスクロール機能（スクロール→停止3秒→アニメーションで先頭に戻る→繰り返し）
+    function initAutoScroll() {
+      const container = document.getElementById('featured-works-container');
+      if (!container) {
+        console.error('❌ Container not found');
+        return;
       }
       
-      function startAutoScroll() {
-        if (!container || isScrolling) return;
+      // DOM再描画を待つ
+      setTimeout(() => {
+        // 初期状態のログ
+        console.log('=== Auto-scroll initialization ===');
+        console.log('Container:', container);
+        console.log('Children count:', container.children.length);
+        console.log('scrollWidth:', container.scrollWidth);
+        console.log('clientWidth:', container.clientWidth);
+        console.log('maxScrollLeft:', container.scrollWidth - container.clientWidth);
         
-        isScrolling = true;
-        isPaused = false;
+        // コンテンツが存在しない場合は中止
+        if (container.scrollWidth <= container.clientWidth) {
+          console.warn('⚠️  No scrollable content. Retrying in 500ms...');
+          // リトライ
+          setTimeout(() => initAutoScroll(), 500);
+          return;
+        }
+        
+        console.log('✅ Starting auto-scroll with scrollable content');
+        
+        let isScrolling = true;
+        let isPausedByUser = false;
+        let isWaitingAtEnd = false;
+        let isReturningToStart = false;
+        const scrollSpeed = 0.5; // ピクセル/フレーム
+        const pauseDuration = 3000; // 停止時間: 3秒
+        const returnDuration = 800; // 先頭に戻るアニメーション時間: 0.8秒
         
         function scroll() {
-          if (!isPaused && container) {
+          if (!isScrolling) return;
+          
+          if (!isPausedByUser && !isWaitingAtEnd && !isReturningToStart) {
+            const maxScrollLeft = container.scrollWidth - container.clientWidth;
             container.scrollLeft += scrollSpeed;
             
-            // オリジナルコンテンツの幅を超えたら、最初に戻る（シームレスに）
-            if (container.scrollLeft >= originalWidth) {
-              container.scrollLeft = 0;
+            // 最後まで到達したら停止
+            if (container.scrollLeft >= maxScrollLeft - 1) {
+              isWaitingAtEnd = true;
+              console.log('✓ Reached end. Waiting 3 seconds... (scrollLeft:', container.scrollLeft, ')');
+              
+              // 3秒後に先頭に戻るアニメーション開始
+              setTimeout(() => {
+                if (!isScrolling) return;
+                
+                isWaitingAtEnd = false;
+                isReturningToStart = true;
+                console.log('✓ Starting return animation');
+                
+                // スムーズスクロールで先頭に戻る
+                container.style.scrollBehavior = 'smooth';
+                container.scrollLeft = 0;
+                
+                // アニメーション完了後、スクロール再開
+                setTimeout(() => {
+                  container.style.scrollBehavior = 'auto';
+                  isReturningToStart = false;
+                  console.log('✓ Returned to start. Resuming scroll...');
+                }, returnDuration);
+                
+              }, pauseDuration);
             }
           }
           
-          if (isScrolling) {
-            requestAnimationFrame(scroll);
-          }
+          requestAnimationFrame(scroll);
         }
         
+        // ユーザーインタラクション
+        container.addEventListener('mousedown', () => { isPausedByUser = true; });
+        container.addEventListener('mouseup', () => { isPausedByUser = false; });
+        container.addEventListener('touchstart', () => { isPausedByUser = true; }, { passive: true });
+        container.addEventListener('touchend', () => { isPausedByUser = false; }, { passive: true });
+        container.addEventListener('touchcancel', () => { isPausedByUser = false; }, { passive: true });
+        container.addEventListener('mouseenter', () => { isPausedByUser = true; });
+        container.addEventListener('mouseleave', () => { isPausedByUser = false; });
+      
+        // スクロール開始
         requestAnimationFrame(scroll);
-      }
-      
-      function stopAutoScroll() {
-        isScrolling = false;
-        isPaused = false;
-      }
-      
-      function pauseAutoScroll() {
-        isPaused = true;
-      }
-      
-      function resumeAutoScroll() {
-        isPaused = false;
-      }
-      
-      // DOMが読み込まれたら自動スクロール開始
-      function initAutoScroll() {
-        container = document.getElementById('featured-works-container');
-        if (!container) return;
-        
-        // コンテンツを複製
-        cloneContent();
-        
-        // マウスイベント（PC）
-        container.addEventListener('mousedown', (e) => {
-          pauseAutoScroll();
-        });
-        
-        container.addEventListener('mouseup', (e) => {
-          resumeAutoScroll();
-        });
-        
-        // タッチイベント（スマホ/タブレット）
-        container.addEventListener('touchstart', (e) => {
-          pauseAutoScroll();
-        }, { passive: true });
-        
-        container.addEventListener('touchend', (e) => {
-          resumeAutoScroll();
-        }, { passive: true });
-        
-        container.addEventListener('touchcancel', (e) => {
-          resumeAutoScroll();
-        }, { passive: true });
-        
-        // ホバー時にもストップ（PC）
-        container.addEventListener('mouseenter', (e) => {
-          pauseAutoScroll();
-        });
-        
-        container.addEventListener('mouseleave', (e) => {
-          resumeAutoScroll();
-        });
-        
-        // 自動スクロール開始
-        startAutoScroll();
-      }
-      
-      // ページ読み込み後に実行（Featured Worksが読み込まれた後）
-      setTimeout(initAutoScroll, 1000);
-    })();
+      }, 100); // 100msの遅延で初期化
+    }
+    
+    loadFeaturedWorks();
   </script>
   <script src="js/share.js"></script>
   <script src="js/sw-register.js"></script>
