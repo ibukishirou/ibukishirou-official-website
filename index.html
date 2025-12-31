@@ -214,35 +214,38 @@
     // Featured Worksのスクロール機能（スクロール→停止3秒→先頭に戻る→繰り返し）
     (function() {
       let isScrolling = false;
-      let isPaused = false;
+      let isPausedByUser = false;
+      let isWaitingAtEnd = false;
       const scrollSpeed = 0.5; // ピクセル/フレーム（ゆっくり）
       const pauseDuration = 3000; // 停止時間: 3秒
       let container = null;
-      let maxScrollLeft = 0;
       
       function startAutoScroll() {
         container = document.getElementById('featured-works-container');
         if (!container || isScrolling) return;
         
         isScrolling = true;
-        isPaused = false;
-        
-        // 最大スクロール位置を計算
-        maxScrollLeft = container.scrollWidth - container.clientWidth;
+        isPausedByUser = false;
+        isWaitingAtEnd = false;
         
         function scroll() {
-          if (!isPaused && container) {
+          if (!isPausedByUser && !isWaitingAtEnd && container) {
+            // 毎フレーム最大スクロール位置を再計算（コンテンツサイズ変動対応）
+            const maxScrollLeft = container.scrollWidth - container.clientWidth;
+            
             container.scrollLeft += scrollSpeed;
             
-            // 最後まで到達したら一時停止
-            if (container.scrollLeft >= maxScrollLeft) {
-              isPaused = true;
+            // 最後まで到達したら一時停止（少しマージンを持たせる）
+            if (container.scrollLeft >= maxScrollLeft - 5) {
+              isWaitingAtEnd = true;
+              console.log('Reached end, waiting 3 seconds...');
               
               // 3秒後に先頭に戻る
               setTimeout(() => {
-                if (container) {
+                if (container && isWaitingAtEnd) {
+                  console.log('Returning to start');
                   container.scrollLeft = 0;
-                  isPaused = false;
+                  isWaitingAtEnd = false;
                 }
               }, pauseDuration);
             }
@@ -258,21 +261,24 @@
       
       function stopAutoScroll() {
         isScrolling = false;
-        isPaused = false;
+        isPausedByUser = false;
+        isWaitingAtEnd = false;
       }
       
       function pauseAutoScroll() {
-        isPaused = true;
+        isPausedByUser = true;
       }
       
       function resumeAutoScroll() {
-        isPaused = false;
+        isPausedByUser = false;
       }
       
       // DOMが読み込まれたら自動スクロール開始
       function initAutoScroll() {
         container = document.getElementById('featured-works-container');
         if (!container) return;
+        
+        console.log('Initializing auto-scroll for Songs section');
         
         // マウスイベント（PC）
         container.addEventListener('mousedown', (e) => {
