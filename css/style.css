@@ -412,6 +412,36 @@ section {
   margin-top: 2rem;
 }
 
+/* Featured Works専用: 横スクロールレイアウト */
+#featured-works .card-grid {
+  display: flex;
+  grid-template-columns: unset;
+  gap: 2rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  padding-bottom: 1rem;
+}
+
+#featured-works .card-grid::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+#featured-works .featured-work-item {
+  flex: 0 0 350px;
+  min-width: 350px;
+}
+
+@media (max-width: 768px) {
+  #featured-works .featured-work-item {
+    flex: 0 0 280px;
+    min-width: 280px;
+  }
+}
+
 .card {
   background: rgba(26, 26, 26, 0.8);
   border: 1px solid var(--color-border);
@@ -528,6 +558,9 @@ section {
   border-radius: 8px;
   overflow: hidden;
   transition: var(--transition);
+  display: block;
+  text-decoration: none;
+  color: inherit;
 }
 
 .featured-work-item:hover,
@@ -544,6 +577,7 @@ section {
   padding-bottom: 56.25%; /* 16:9 アスペクト比 */
   overflow: hidden;
   background: #000;
+  pointer-events: none; /* カード全体がリンクなので、サムネイル部分は個別にクリック不要 */
 }
 
 .featured-thumbnail {
@@ -580,6 +614,16 @@ section {
 .work-video {
   width: 100%;
   height: 100%;
+}
+
+.featured-work-item .card-title,
+.work-item .card-title {
+  color: var(--color-text);
+}
+
+.featured-work-item:hover .card-title,
+.work-item:hover .card-title {
+  color: var(--color-secondary);
 }
 
 .featured-work-item .card-title a,
