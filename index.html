@@ -211,51 +211,40 @@
     loadFeaturedWorks();
   </script>
   <script>
-    // Featured Worksのシームレスな無限スクロール機能
+    // Featured Worksのスクロール機能（スクロール→停止3秒→先頭に戻る→繰り返し）
     (function() {
       let isScrolling = false;
       let isPaused = false;
       const scrollSpeed = 0.5; // ピクセル/フレーム（ゆっくり）
+      const pauseDuration = 3000; // 停止時間: 3秒
       let container = null;
-      let originalWidth = 0;
-      
-      function cloneContent() {
-        container = document.getElementById('featured-works-container');
-        if (!container) return;
-        
-        // オリジナルのコンテンツを取得
-        const originalContent = Array.from(container.children);
-        if (originalContent.length === 0) return;
-        
-        // オリジナルの幅を記録
-        originalWidth = container.scrollWidth;
-        
-        // コンテンツを複製して追加（シームレスなループのため）
-        originalContent.forEach(item => {
-          const clone = item.cloneNode(true);
-          container.appendChild(clone);
-        });
-        
-        // さらにもう一度複製（スムーズな切り替えのため）
-        originalContent.forEach(item => {
-          const clone = item.cloneNode(true);
-          container.appendChild(clone);
-        });
-      }
+      let maxScrollLeft = 0;
       
       function startAutoScroll() {
+        container = document.getElementById('featured-works-container');
         if (!container || isScrolling) return;
         
         isScrolling = true;
         isPaused = false;
         
+        // 最大スクロール位置を計算
+        maxScrollLeft = container.scrollWidth - container.clientWidth;
+        
         function scroll() {
           if (!isPaused && container) {
             container.scrollLeft += scrollSpeed;
             
-            // オリジナルコンテンツの幅を超えたら、最初に戻る（シームレスに）
-            if (container.scrollLeft >= originalWidth) {
-              container.scrollLeft = 0;
+            // 最後まで到達したら一時停止
+            if (container.scrollLeft >= maxScrollLeft) {
+              isPaused = true;
+              
+              // 3秒後に先頭に戻る
+              setTimeout(() => {
+                if (container) {
+                  container.scrollLeft = 0;
+                  isPaused = false;
+                }
+              }, pauseDuration);
             }
           }
           
@@ -284,9 +273,6 @@
       function initAutoScroll() {
         container = document.getElementById('featured-works-container');
         if (!container) return;
-        
-        // コンテンツを複製
-        cloneContent();
         
         // マウスイベント（PC）
         container.addEventListener('mousedown', (e) => {
