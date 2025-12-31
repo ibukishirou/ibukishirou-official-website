@@ -18,6 +18,7 @@ function displaySNSLinks(links) {
     { key: 'youtube', name: 'YouTube', icon: 'ri-youtube-line' },
     { key: 'x_main', name: 'X (Main)', icon: 'ri-twitter-x-line' },
     { key: 'x_sub', name: 'X (Sub)', icon: 'ri-twitter-x-line' },
+    { key: 'bluesky', name: 'Bluesky', icon: 'ri-bluesky-line' },
     { key: 'tiktok', name: 'TikTok', icon: 'ri-tiktok-line' },
     { key: 'instagram', name: 'Instagram', icon: 'ri-instagram-line' },
     { key: 'marshmallow', name: 'マシュマロ', icon: 'ri-mail-line' },

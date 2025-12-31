@@ -115,10 +115,32 @@ nav {
   font-size: 0.95rem;
   letter-spacing: 0.05em;
   transition: var(--transition);
+  white-space: nowrap;
 }
 
 .nav-links a:hover {
   color: var(--color-secondary);
+}
+
+/* タブレット/小型PC向け：ナビゲーションリンクのレスポンシブ調整 */
+@media (max-width: 1200px) and (min-width: 769px) {
+  .nav-links {
+    gap: 1.2rem;
+  }
+  
+  .nav-links a {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  .nav-links {
+    gap: 0.8rem;
+  }
+  
+  .nav-links a {
+    font-size: 0.8rem;
+  }
 }
 
 /* ハンバーガーメニュー */
@@ -1272,6 +1294,18 @@ footer {
   }
 
   .share-btn.twitter-share:hover svg {
+    fill: #ffffff;
+  }
+}
+
+/* Blueskyシェアボタン（ホバー時のみ色変更 - PCのみ） */
+@media (hover: hover) and (pointer: fine) {
+  .share-btn.bluesky-share:hover {
+    background: #1185FE;
+    border-color: #1185FE;
+  }
+
+  .share-btn.bluesky-share:hover svg {
     fill: #ffffff;
   }
 }

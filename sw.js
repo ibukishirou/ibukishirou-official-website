@@ -2,7 +2,7 @@
 // Service Worker - 伊吹しろう Official Website
 // ============================================
 
-const CACHE_VERSION = 'v1.0.0';
+const CACHE_VERSION = 'v1.0.1';
 const CACHE_NAME = `ibukishirou-${CACHE_VERSION}`;
 
 // キャッシュするリソース
