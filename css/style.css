@@ -558,6 +558,9 @@ section {
   border-radius: 8px;
   overflow: hidden;
   transition: var(--transition);
+  display: block;
+  text-decoration: none;
+  color: inherit;
 }
 
 .featured-work-item:hover,
@@ -574,6 +577,7 @@ section {
   padding-bottom: 56.25%; /* 16:9 アスペクト比 */
   overflow: hidden;
   background: #000;
+  pointer-events: none; /* カード全体がリンクなので、サムネイル部分は個別にクリック不要 */
 }
 
 .featured-thumbnail {
@@ -610,6 +614,16 @@ section {
 .work-video {
   width: 100%;
   height: 100%;
+}
+
+.featured-work-item .card-title,
+.work-item .card-title {
+  color: var(--color-text);
+}
+
+.featured-work-item:hover .card-title,
+.work-item:hover .card-title {
+  color: var(--color-secondary);
 }
 
 .featured-work-item .card-title a,

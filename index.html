@@ -190,17 +190,17 @@
           const videoId = extractYouTubeVideoId(item.link);
           const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
           return `
-            <div class="featured-work-item">
-              <a href="${item.link}" target="_blank" class="thumbnail-link">
+            <a href="${item.link}" target="_blank" class="featured-work-item" rel="noopener noreferrer">
+              <div class="thumbnail-link">
                 <img src="${thumbnailUrl}" alt="${item.title}" class="featured-thumbnail" onerror="this.src='https://img.youtube.com/vi/${videoId}/hqdefault.jpg'">
-              </a>
+              </div>
               <div class="card-content">
-                <h3 class="card-title"><a href="${item.link}" target="_blank">${item.title}</a></h3>
+                <h3 class="card-title">${item.title}</h3>
                 <div class="card-tags">
                   ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                 </div>
               </div>
-            </div>
+            </a>
           `;
         }).join('');
       } catch (error) {
