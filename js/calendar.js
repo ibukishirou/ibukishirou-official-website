@@ -303,10 +303,29 @@ function getEventsForDate(date) {
   if (!calendarData) return events;
   
   // 定期配信のチェック
-  if (calendarData.regular && calendarData.regular.scheduled && filters.regular) {
+  if (calendarData.regular && calendarData.regular.scheduled) {
     calendarData.regular.scheduled.forEach(regular => {
       const dayOfWeek = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'][date.getDay()];
-      if (regular.days[dayOfWeek]) {
+      const dateStr = formatDateString(date);
+      
+      // 除外日のチェック
+      const isExcluded = regular.exclusion_dates && regular.exclusion_dates.includes(dateStr);
+      
+      if (isExcluded) {
+        // 除外日には「〇〇お休み」イベントを追加（常に表示、フィルター無視）
+        events.push({
+          type: 'exclusion',
+          title: `${regular.title}お休み`,
+          start_time: regular.start_time,
+          end_time: regular.end_time,
+          link: null,
+          tags: [],
+          sortTime: '00:00:00', // 一番上に表示
+          sortPriority: 0, // 最優先
+          color: '#808080' // グレー色
+        });
+      } else if (regular.days[dayOfWeek] && filters.regular) {
+        // 通常の定期配信（フィルターがONの場合のみ表示）
         events.push({
           type: 'regular',
           title: regular.title,
@@ -314,7 +333,8 @@ function getEventsForDate(date) {
           end_time: regular.end_time,
           link: regular.link,
           tags: regular.tags || [],
-          sortTime: regular.start_time
+          sortTime: regular.start_time,
+          sortPriority: 2
         });
       }
     });
@@ -331,7 +351,8 @@ function getEventsForDate(date) {
           link: celebration.link,
           color: getColorFromTags(celebration.tags),
           tags: celebration.tags || [],
-          sortTime: '00:00' // 記念日は終日イベントなので一番上に表示
+          sortTime: '00:00', // 記念日は終日イベントなので一番上に表示
+          sortPriority: 1
         });
       }
     });
@@ -358,14 +379,22 @@ function getEventsForDate(date) {
           isStart: dateStr === startDateStr,
           isEnd: dateStr === endDateStr,
           isMultiDay: startDateStr !== endDateStr,
-          sortTime: formatTimeFromDate(startDate)
+          sortTime: formatTimeFromDate(startDate),
+          sortPriority: 3
         });
       }
     });
   }
   
-  // 時刻順にソート
+  // 優先度と時刻順にソート
   events.sort((a, b) => {
+    // まず優先度で比較
+    const priorityA = a.sortPriority !== undefined ? a.sortPriority : 999;
+    const priorityB = b.sortPriority !== undefined ? b.sortPriority : 999;
+    if (priorityA !== priorityB) {
+      return priorityA - priorityB;
+    }
+    // 優先度が同じ場合は時刻で比較
     return a.sortTime.localeCompare(b.sortTime);
   });
   
@@ -436,6 +465,23 @@ function createEventElement(event) {
     });
     
     return eventItem;
+    
+  } else if (event.type === 'exclusion') {
+    // 除外日（〇〇お休み） - 複数日イベントの中間日と同じバー表示（高さを太く）
+    const eventBar = document.createElement('div');
+    eventBar.className = 'event-bar';
+    eventBar.style.height = '28px'; // 通常の22pxより太く
+    
+    const eventBarContent = document.createElement('div');
+    eventBarContent.className = 'event-bar-content';
+    eventBarContent.style.backgroundColor = event.color;
+    eventBarContent.style.cursor = 'default';
+    eventBarContent.textContent = event.title;
+    
+    // クリックイベントなし（何も起こらない）
+    
+    eventBar.appendChild(eventBarContent);
+    return eventBar;
     
   } else if (event.type === 'regular') {
     // 定期配信

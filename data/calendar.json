@@ -15,7 +15,10 @@
           "thursday": false,
           "friday": true,
           "saturday": true
-        }
+        },
+        "exclusion_dates": [
+          "2026-01-30"
+        ]
       }
     ],
     "celebration": [
