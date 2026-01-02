@@ -320,7 +320,7 @@ function getEventsForDate(date) {
           end_time: regular.end_time,
           link: null,
           tags: [],
-          sortTime: regular.start_time,
+          sortTime: '00:00:00', // 一番上に表示
           color: '#808080' // グレー色
         });
       } else if (regular.days[dayOfWeek] && filters.regular) {
@@ -456,23 +456,20 @@ function createEventElement(event) {
     return eventItem;
     
   } else if (event.type === 'exclusion') {
-    // 除外日（〇〇お休み）
-    const eventItem = document.createElement('div');
-    eventItem.className = 'event-item exclusion';
-    eventItem.style.backgroundColor = event.color;
-    eventItem.style.color = '#ffffff';
-    eventItem.style.cursor = 'default';
+    // 除外日（〇〇お休み） - 複数日イベントの中間日と同じバー表示
+    const eventBar = document.createElement('div');
+    eventBar.className = 'event-bar';
     
-    // タイトルのみ表示
-    const titleDiv = document.createElement('div');
-    titleDiv.className = 'event-title';
-    titleDiv.textContent = event.title;
-    titleDiv.style.padding = '0.4rem 0.5rem';
-    eventItem.appendChild(titleDiv);
+    const eventBarContent = document.createElement('div');
+    eventBarContent.className = 'event-bar-content';
+    eventBarContent.style.backgroundColor = event.color;
+    eventBarContent.style.cursor = 'default';
+    eventBarContent.textContent = event.title;
     
     // クリックイベントなし（何も起こらない）
     
-    return eventItem;
+    eventBar.appendChild(eventBarContent);
+    return eventBar;
     
   } else if (event.type === 'regular') {
     // 定期配信
