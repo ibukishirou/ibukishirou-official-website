@@ -10,15 +10,24 @@
   const pageMap = {
     '/': { title: 'Home', icon: '🏠' },
     '/index.html': { title: 'Home', icon: '🏠' },
-    '/profile.html': { title: 'Profile', icon: '👤' },
-    '/calendar.html': { title: 'Calendar', icon: '📅' },
-    '/achievements.html': { title: 'Achievements', icon: '🏆' },
-    '/goods.html': { title: 'Goods', icon: '🛍️' },
-    '/guidelines.html': { title: 'Guidelines', icon: '📋' },
-    '/faq.html': { title: 'FAQ', icon: '❓' },
-    '/contact.html': { title: 'Contact', icon: '📧' },
-    '/terms.html': { title: 'Terms of Service', icon: '📜' },
-    '/privacy.html': { title: 'Privacy Policy', icon: '🔒' }
+    '/profile': { title: 'Profile', icon: '👤' },
+    '/profile/': { title: 'Profile', icon: '👤' },
+    '/calendar': { title: 'Calendar', icon: '📅' },
+    '/calendar/': { title: 'Calendar', icon: '📅' },
+    '/achievements': { title: 'Achievements', icon: '🏆' },
+    '/achievements/': { title: 'Achievements', icon: '🏆' },
+    '/goods': { title: 'Goods', icon: '🛍️' },
+    '/goods/': { title: 'Goods', icon: '🛍️' },
+    '/guidelines': { title: 'Guidelines', icon: '📋' },
+    '/guidelines/': { title: 'Guidelines', icon: '📋' },
+    '/faq': { title: 'FAQ', icon: '❓' },
+    '/faq/': { title: 'FAQ', icon: '❓' },
+    '/contact': { title: 'Contact', icon: '📧' },
+    '/contact/': { title: 'Contact', icon: '📧' },
+    '/terms': { title: 'Terms of Service', icon: '📜' },
+    '/terms/': { title: 'Terms of Service', icon: '📜' },
+    '/privacy': { title: 'Privacy Policy', icon: '🔒' },
+    '/privacy/': { title: 'Privacy Policy', icon: '🔒' }
   };
 
   /**
