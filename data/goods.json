@@ -1,5 +1,11 @@
 [
   {
+    "name": "缶バッチ vol.2 全6種",
+    "thumbnail": "assets/goods/20260201_kanba.webp",
+    "link": "https://ibukishirou.booth.pm/items/7896055",
+    "available": true
+  },
+  {
     "name": "アクリルスタンド",
     "thumbnail": "assets/goods/20251118_akusuta.webp",
     "link": "https://ibukishirou.booth.pm/items/7625265",
@@ -24,7 +30,7 @@
     "available": true
   },
   {
-    "name": "缶バッチ",
+    "name": "缶バッチ vol.1",
     "thumbnail": "assets/goods/20251118_kanbatti.webp",
     "link": "https://ibukishirou.booth.pm/items/7625284",
     "available": false
