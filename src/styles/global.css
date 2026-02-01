@@ -1,0 +1,126 @@
+/* ============================================
+   VTuber 伊吹しろう 公式サイト - グローバルCSS
+   配色：深い赤、紅葉オレンジ、黒、白
+   ============================================ */
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+:root {
+  --color-primary: #8B0000; /* 深い赤 */
+  --color-secondary: #D2691E; /* 紅葉オレンジ */
+  --color-accent: #CD5C5C; /* 明るい赤 */
+  --color-dark: #1a1a1a; /* 濃い黒 */
+  --color-bg: #0a0a0a; /* 背景用の黒 */
+  --color-text: #f5f5f5; /* テキスト白 */
+  --color-text-secondary: #c0c0c0; /* セカンダリテキスト */
+  --color-border: #333333; /* ボーダー */
+  
+  --font-primary: 'Noto Serif JP', serif;
+  --font-secondary: 'Noto Sans JP', sans-serif;
+  
+  --transition: all 0.3s ease;
+}
+
+/* ============================================
+   リセット & 基本設定
+   ============================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-primary);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  line-height: 1.8;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  padding-top: 70px; /* ヘッダー分の余白 */
+}
+
+a {
+  color: var(--color-secondary);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--color-accent);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ============================================
+   セクション共通
+   ============================================ */
+
+section {
+  padding: 6rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: var(--color-text);
+  letter-spacing: 0.1em;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+}
+
+/* ============================================
+   レスポンシブ対応
+   ============================================ */
+
+@media (max-width: 960px) {
+  section {
+    padding: 4rem 1rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 1.5rem;
+  }
+}

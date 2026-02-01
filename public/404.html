@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>Loading...</title>
+    <script>
+      // SPA用リダイレクト処理
+      // GitHub Pagesで直接URLにアクセスした場合、404.htmlが表示されるため
+      // このスクリプトでindex.htmlにリダイレクトし、React Routerに処理を渡す
+      const pathSegments = window.location.pathname.split('/').filter(segment => segment)
+      const redirect = '/' + (pathSegments.length > 0 ? '?' + pathSegments.join('/') : '')
+      window.location.replace(redirect)
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
