@@ -1,5 +1,5 @@
 /* ============================================
-   Achievement Page - 年別・カテゴリ別カード表示
+   Achievement Page - 年別カード表示
    ============================================ */
 
 #achievements-container {
@@ -19,35 +19,6 @@
   text-align: center;
   margin-bottom: 2.5rem;
   letter-spacing: 0.05em;
-}
-
-/* カテゴリセクション */
-.category-section {
-  margin-bottom: 3rem;
-  position: relative;
-  padding-left: 1.5rem;
-}
-
-/* カテゴリ左側の縦線 */
-.category-section::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: linear-gradient(180deg, var(--color-primary), var(--color-secondary));
-  border-radius: 2px;
-}
-
-.category-title {
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: var(--color-secondary);
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--color-secondary);
-  display: inline-block;
 }
 
 /* カードグリッド（3列） */
@@ -124,10 +95,6 @@
   .year-title {
     font-size: 1.8rem;
   }
-  
-  .category-title {
-    font-size: 1.3rem;
-  }
 }
 
 @media (max-width: 768px) {
@@ -142,20 +109,6 @@
   .year-title {
     font-size: 1.6rem;
     margin-bottom: 2rem;
-  }
-  
-  .category-section {
-    padding-left: 1rem;
-    margin-bottom: 2.5rem;
-  }
-  
-  .category-section::before {
-    width: 2px;
-  }
-  
-  .category-title {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
   }
   
   .achievement-cards {
