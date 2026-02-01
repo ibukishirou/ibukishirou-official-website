@@ -1,74 +1,30 @@
 [
   {
-    "id": "250922",
-    "title": "伊吹しろうデビュー",
-    "body": "VTuberとして9/22に活動を開始しました。",
-    "link": "https://www.youtube.com/@ibukishirou",
-    "tags": ["infomation"],
-    "release_date": "2025-09-22"
+    "date": "2026-02-22",
+    "title": "#みーとーくvol.7",
+    "description": "推しとの1on1トーク、2Shotチェキ撮影が楽しめるリアルイベント",
+    "client": "株式会社ペペロンチーノ",
+    "url": "https://livepocket.jp/e/t_pb3"
   },
   {
-    "id": "250923",
-    "title": "1st 歌ってみた「狂乱hey kids!!」公開",
-    "body": "VTuberデビューを記念して「狂乱hey kids!!」をリリースしました。",
-    "link": "https://youtu.be/ebn1HkmANqg",
-    "tags": ["music"],
-    "release_date": "2025-09-23"
+    "date": "2026-02-13",
+    "title": "AIICO自販機『TOKENSPOT』 冬の思い出コレクション",
+    "description": "デジタルグッズ自動販売機 全5種ボイス販売",
+    "client": "24karat株式会社",
+    "url": "https://x.com/NFT_AIICO"
   },
   {
-    "id": "251024",
-    "title": "デビュー1ヵ月記念 歌ってみた「私は最強」公開",
-    "body": "デビュー1ヵ月と同時にチャンネル登録者数も2,000人を突破いたしました。",
-    "link": "https://youtu.be/9Q0JNp02gdg",
-    "tags": ["music"],
-    "release_date": "2025-10-24"
+    "date": "2026-01-25",
+    "title": "缶バッチ vol.2",
+    "description": "伊吹しろう公式グッズ 全6種缶バッチ販売",
+    "client": "",
+    "url": "https://ibukishirou.booth.pm/items/7896055"
   },
   {
-    "id": "251109",
-    "title": "収益化記念「MAGIC」公開",
-    "body": "デビュー1.5か月と共にYouTube収益化も達成しました。",
-    "link": "https://youtu.be/ma38CHcOcM0",
-    "tags": ["music"],
-    "release_date": "2025-11-09"
-  },
-  {
-    "id": "251127",
-    "title": "公式サイトオープン",
-    "body": "伊吹しろう公式サイトを開設しました。<br>伊吹しろうのプロフィールや作品、ガイドラインなどをまとめたポータルサイトです。",
-    "link": "",
-    "tags": ["infomation"],
-    "release_date": "2025-11-27"
-  },
-  {
-    "id": "251225",
-    "title": "クリスマス「IRIS OUT」公開",
-    "body": "歌ってみたのプレゼント！米津玄師さんのIRIS OUTを歌わせていただきました。",
-    "link": "https://youtu.be/ODUIgGx97Xk",
-    "tags": ["music"],
-    "release_date": "2025-12-25"
-  },
-  {
-    "id": "251229",
-    "title": "【🔰まずはこれ！】30秒でわかる『伊吹しろう』公開",
-    "body": "30秒でサクッとみれる新規さん向けの動画を公開しました。拡散よろしくお願いいたします！",
-    "link": "https://youtu.be/ubOOb-J1Jeg",
-    "tags": ["video"],
-    "release_date": "2025-12-29"
-  },
-  {
-    "id": "260102",
-    "title": "【🔰自己紹介】30分でわかる！伊吹しろうの自己紹介配信！公開",
-    "body": "30分の生配信で伊吹しろうの自己紹介をしました。拡散よろしくお願いいたします！",
-    "link": "https://www.youtube.com/live/p8y24kDfuvA",
-    "tags": ["video"],
-    "release_date": "2026-01-02"
-  },
-  {
-    "id": "260106",
-    "title": "【🔰伊吹しろう新規へ】配信を120%楽しめる状態でリアタイデビューしよう！ 公開",
-    "body": "配信を楽しむためのガイドラインのような動画を公開しました。新規の方ももう推してくれている方も是非みてみてね～！",
-    "link": "https://youtu.be/N0nppZNGIhE",
-    "tags": ["video"],
-    "release_date": "2026-01-06"
+    "date": "2025-09-22",
+    "title": "デビュー記念グッズ",
+    "description": "伊吹しろう公式グッズ アクスタ・アクキー・ステッカーなど サイン色紙プレゼント",
+    "client": "",
+    "url": "https://ibukishirou.booth.pm/items/7618604"
   }
 ]

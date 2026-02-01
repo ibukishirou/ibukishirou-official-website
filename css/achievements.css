@@ -1,235 +1,134 @@
 /* ============================================
-   Achievements Page - 年表デザイン（縦一列）
+   Achievement Page - 年別カード表示
    ============================================ */
 
-/* フィルターボタン */
-.filter-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 3rem;
-  flex-wrap: wrap;
-}
-
-.filter-btn {
-  padding: 0.75rem 2rem;
-  background: rgba(26, 26, 26, 0.5);
-  border: 2px solid var(--color-border);
-  color: var(--color-text-secondary);
-  font-family: var(--font-secondary);
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 4px;
-}
-
-/* ホバー効果はJavaScriptで動的に制御 */
-.filter-btn.active {
-  color: var(--color-text);
-}
-
-/* 年表リスト */
-.achievements-list {
-  max-width: 900px;
+#achievements-container {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 3rem 2rem;
-  position: relative;
 }
 
-/* 左側の縦線 - 削除（窮屈に見えるため） */
-.achievements-list::before {
-  display: none;
+/* 年セクション */
+.year-section {
+  margin-bottom: 4rem;
 }
 
-/* 各アイテム */
-.achievement-item {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 3rem;
-  position: relative;
-  opacity: 0;
-  animation: fadeInUp 0.6s ease forwards;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* アニメーション遅延 */
-.achievement-item:nth-child(1) { animation-delay: 0.1s; }
-.achievement-item:nth-child(2) { animation-delay: 0.2s; }
-.achievement-item:nth-child(3) { animation-delay: 0.3s; }
-.achievement-item:nth-child(4) { animation-delay: 0.4s; }
-.achievement-item:nth-child(5) { animation-delay: 0.5s; }
-.achievement-item:nth-child(6) { animation-delay: 0.6s; }
-.achievement-item:nth-child(7) { animation-delay: 0.7s; }
-.achievement-item:nth-child(8) { animation-delay: 0.8s; }
-.achievement-item:nth-child(9) { animation-delay: 0.9s; }
-.achievement-item:nth-child(10) { animation-delay: 1.0s; }
-
-/* 日付（左側） */
-.achievement-date {
-  flex-shrink: 0;
-  width: 120px;
-  font-family: var(--font-secondary);
-  font-size: 1rem;
-  color: var(--color-secondary);
-  font-weight: 700;
-  text-align: right;
-  padding-right: 1.5rem;
-  padding-top: 0.25rem;
-}
-
-/* ポイント（縦線上） - 削除 */
-.achievement-point {
-  display: none;
-}
-
-/* コンテンツ（右側） */
-.achievement-content {
-  flex: 1;
-  background: rgba(26, 26, 26, 0.4);
-  padding: 1.5rem;
-  border-radius: 8px;
-  border: 1px solid var(--color-border);
-  transition: var(--transition);
-}
-
-/* クリッカブルなコンテンツ */
-.achievement-content.clickable {
-  cursor: pointer;
-}
-
-.achievement-content.clickable:hover {
-  background: rgba(26, 26, 26, 0.6);
-  border-color: var(--color-secondary);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-/* タイトル */
-.achievement-title {
-  font-family: var(--font-primary);
-  font-size: 1.2rem;
+.year-title {
+  font-size: 2rem;
   font-weight: 500;
   color: var(--color-text);
-  line-height: 1.6;
-  margin: 0 0 0.75rem 0;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.05em;
 }
 
-/* 本文 */
-.achievement-body {
-  font-family: var(--font-secondary);
-  font-size: 0.95rem;
-  color: var(--color-text-secondary);
-  line-height: 1.8;
-  margin: 0 0 0.75rem 0;
+/* カードグリッド（3列） */
+.achievement-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 1.5rem;
 }
 
-/* タグ */
-.achievement-tags {
+/* 個別カード */
+.achievement-card {
+  background: rgba(26, 26, 26, 0.8);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: var(--transition);
+  cursor: pointer;
   display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-top: 0.75rem;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
-.achievement-tag {
-  font-size: 0.75rem;
+.achievement-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--color-secondary);
+  box-shadow: 0 10px 30px rgba(139, 0, 0, 0.3);
+}
+
+/* カード内日付 */
+.achievement-card-date {
   font-family: var(--font-secondary);
+  font-size: 0.85rem;
+  color: var(--color-secondary);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+/* カード内タイトル */
+.achievement-card-title {
+  font-size: 1.15rem;
   font-weight: 500;
-  padding: 0.35rem 0.75rem;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid currentColor;
-  display: inline-block;
+  color: var(--color-text);
+  line-height: 1.5;
+  margin: 0;
 }
 
-.achievement-tag::before {
-  content: '#';
-  margin-right: 0.2rem;
-  opacity: 0.8;
+/* カード内説明文 */
+.achievement-card-description {
+  font-family: var(--font-secondary);
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  flex-grow: 1;
 }
 
-/* タグの色分け */
-.achievement-tag.tag-infomation {
-  color: rgb(255, 69, 0);
-}
-
-.achievement-tag.tag-music {
-  color: rgb(130, 130, 255);
-}
-
-.achievement-tag.tag-video {
-  color: rgb(34, 139, 34);
+/* カード内クライアント名 */
+.achievement-card-client {
+  font-family: var(--font-secondary);
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--color-border);
+  font-style: italic;
 }
 
 /* レスポンシブ対応 */
-@media (max-width: 960px) {
-  .filter-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto auto;
-    gap: 0.5rem;
-    max-width: 100%;
+@media (max-width: 1024px) {
+  .achievement-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
   }
   
-  /* ALLボタンを1段目全幅に */
-  .filter-btn[data-filter="all"] {
-    grid-column: 1 / -1;
+  .year-title {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #achievements-container {
+    padding: 0 1rem;
   }
   
-  .filter-btn {
-    padding: 0.6rem 1rem;
-    font-size: 0.85rem;
-    width: 100%;
+  .year-section {
+    margin-bottom: 3rem;
   }
   
-  .achievements-list {
-    padding: 2rem 1rem;
-  }
-  
-  /* SPでは縦線を非表示 */
-  .achievements-list::before {
-    display: none;
-  }
-  
-  .achievement-item {
-    flex-direction: column;
+  .year-title {
+    font-size: 1.6rem;
     margin-bottom: 2rem;
   }
   
-  /* SPでは日付をコンテンツ上部に */
-  .achievement-date {
-    width: 100%;
-    text-align: left;
-    padding: 0 0 0.5rem 0;
-    font-size: 0.95rem;
+  .achievement-cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
   
-  /* SPではポイントを非表示 */
-  .achievement-point {
-    display: none;
-  }
-  
-  /* SPではコンテンツを全幅に */
-  .achievement-content {
-    width: 100%;
+  .achievement-card {
     padding: 1.25rem;
   }
   
-  .achievement-title {
+  .achievement-card-title {
     font-size: 1.1rem;
   }
   
-  .achievement-body {
-    font-size: 0.9rem;
+  .achievement-card-description {
+    font-size: 0.85rem;
+  }
+  
+  .achievement-card-client {
+    font-size: 0.8rem;
   }
 }
