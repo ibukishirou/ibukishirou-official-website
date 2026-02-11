@@ -5,7 +5,6 @@
 /* ファーストビュー */
 .company-hero {
   min-height: calc(100vh - 90px);
-  margin-top: 90px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -288,7 +287,6 @@
 @media (max-width: 768px) {
   .company-hero {
     min-height: calc(100vh - 90px);
-    margin-top: 90px;
     padding: 1rem;
   }
 
