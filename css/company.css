@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 8rem 2rem 4rem;
+  padding: 0 2rem;
   background: linear-gradient(135deg, rgba(139, 0, 0, 0.1) 0%, rgba(10, 10, 10, 0.95) 100%);
   border-bottom: 1px solid var(--color-border);
 }
@@ -17,6 +17,7 @@
 .hero-content {
   max-width: 800px;
   margin: 0 auto;
+  transform: translateY(-3rem);
 }
 
 .company-name {
@@ -286,8 +287,12 @@
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
   .company-hero {
-    min-height: 50vh;
-    padding: 6rem 1rem 3rem;
+    min-height: 100vh;
+    padding: 0 1rem;
+  }
+  
+  .hero-content {
+    transform: translateY(-2rem);
   }
 
   .company-name {
