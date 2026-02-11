@@ -4,7 +4,7 @@
 
 /* ファーストビュー */
 .company-hero {
-  min-height: 60vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -171,7 +171,7 @@
 
 .overview-table {
   width: 100%;
-  max-width: 800px;
+  max-width: 700px;
   margin: 0 auto;
   border-collapse: collapse;
   font-family: var(--font-secondary);
@@ -184,18 +184,19 @@
 .overview-table th,
 .overview-table td {
   padding: 1.5rem 1rem;
-  text-align: left;
+  text-align: center;
 }
 
 .overview-table th {
   font-weight: 600;
   color: var(--color-secondary);
-  width: 30%;
+  width: 40%;
   white-space: nowrap;
 }
 
 .overview-table td {
   color: var(--color-text);
+  width: 60%;
 }
 
 .overview-table a {
@@ -332,10 +333,15 @@
   .overview-table td {
     padding: 1rem 0.5rem;
     font-size: 0.9rem;
+    text-align: center;
   }
 
   .overview-table th {
-    width: 35%;
+    width: 40%;
+  }
+  
+  .overview-table td {
+    width: 60%;
   }
 
   .cta-grid {
