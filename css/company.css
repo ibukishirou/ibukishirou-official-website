@@ -4,12 +4,12 @@
 
 /* ファーストビュー */
 .company-hero {
-  min-height: 60vh;
+  min-height: calc(100vh - 90px);
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 8rem 2rem 4rem;
+  padding: 2rem;
   background: linear-gradient(135deg, rgba(139, 0, 0, 0.1) 0%, rgba(10, 10, 10, 0.95) 100%);
   border-bottom: 1px solid var(--color-border);
 }
@@ -171,7 +171,7 @@
 
 .overview-table {
   width: 100%;
-  max-width: 800px;
+  max-width: 700px;
   margin: 0 auto;
   border-collapse: collapse;
   font-family: var(--font-secondary);
@@ -184,18 +184,19 @@
 .overview-table th,
 .overview-table td {
   padding: 1.5rem 1rem;
-  text-align: left;
+  text-align: center;
 }
 
 .overview-table th {
   font-weight: 600;
   color: var(--color-secondary);
-  width: 30%;
+  width: 40%;
   white-space: nowrap;
 }
 
 .overview-table td {
   color: var(--color-text);
+  width: 60%;
 }
 
 .overview-table a {
@@ -285,8 +286,8 @@
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
   .company-hero {
-    min-height: 50vh;
-    padding: 6rem 1rem 3rem;
+    min-height: calc(100vh - 90px);
+    padding: 1rem;
   }
 
   .company-name {
@@ -332,10 +333,15 @@
   .overview-table td {
     padding: 1rem 0.5rem;
     font-size: 0.9rem;
+    text-align: center;
   }
 
   .overview-table th {
-    width: 35%;
+    width: 40%;
+  }
+  
+  .overview-table td {
+    width: 60%;
   }
 
   .cta-grid {
